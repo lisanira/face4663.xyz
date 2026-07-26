@@ -11,7 +11,6 @@
   <title>FACE4663</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body>
   <div class="noise"></div>
@@ -31,7 +30,7 @@
 
   <main id="top">
     <section class="hero">
-      <div class="eyebrow">ROBINHOOD CHAIN &bull; VANITY CONTRACT</div>
+      <div class="eyebrow">ROBINHOOD CHAIN • VANITY CONTRACT</div>
 
       <h1>
         THE FIRST<br />
@@ -43,7 +42,7 @@
         <strong>FACE4663</strong>.
       </p>
 
-      <div class="contract-card coming-soon-card">
+      <div class="contract-card">
         <div>
           <span class="label">Contract address</span>
           <code id="contractAddress">Coming Soon</code>
@@ -52,8 +51,8 @@
       </div>
 
       <div class="actions">
-        <a id="buyLink" class="button primary coming-soon-btn" href="#" target="_blank" rel="noreferrer" onclick="return false;">Coming Soon</a>
-        <a id="explorerLink" class="button secondary coming-soon-btn" href="#" target="_blank" rel="noreferrer" onclick="return false;">Coming Soon</a>
+        <a id="buyLink" class="button primary" href="#" target="_blank" rel="noreferrer" onclick="return false;">Coming Soon</a>
+        <a id="explorerLink" class="button secondary" href="#" target="_blank" rel="noreferrer" onclick="return false;">Coming Soon</a>
       </div>
 
       <div class="proof-row">
@@ -72,75 +71,30 @@
       </div>
     </section>
 
-        <section id="chart" class="section">
+    <section id="chart" class="section">
       <div class="section-heading">
         <div>
           <span class="eyebrow">LIVE MARKET</span>
           <h2>Token chart</h2>
         </div>
-        <a id="chartExternalLink" class="text-link" href="#" target="_blank" rel="noreferrer" style="display:none">View on DexScreener ↗</a>
+        <a id="chartExternalLink" class="text-link" href="#" target="_blank" rel="noreferrer">Open full chart ↗</a>
       </div>
 
-      <!-- Chart Card — custom TradingView Lightweight Charts -->
-      <div class="dashboard-container">
-        <div class="chart-header">
-          <div class="pair-info">
-            <div class="pair-name" id="chartPairName">FACE4663 / WETH</div>
-            <div class="live-badge" id="chartLiveBadge">LIVE</div>
-          </div>
-          <div class="timeframes">
-            <button class="tf-btn active">1D</button>
-            <button class="tf-btn">7D</button>
-            <button class="tf-btn">1M</button>
-            <button class="tf-btn">1Y</button>
-            <button class="tf-btn">ALL</button>
+      <div class="chart-shell">
+        <div id="chartPlaceholder" class="chart-placeholder">
+          <div class="chart-grid"></div>
+          <div class="chart-line"></div>
+          <div class="chart-message">
+            <span>Coming Soon</span>
           </div>
         </div>
-
-        <div id="chart-container">
-          <div class="powered-by">
-            <svg class="dex-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 0L93.3013 25V75L50 100L6.69873 75V25L50 0Z" fill="#36fb36"/><path d="M50 20L75.9808 35V65L50 80L24.0192 65V35L50 20Z" fill="#131722"/></svg>
-            Powered by DEXSCREENER
-          </div>
-        </div>
-
-        <div class="info-panel">
-          <div class="info-item">
-            <svg class="info-icon" fill="#787b86" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
-            <div>
-              <div class="info-label">CONTRACT</div>
-              <div class="info-value" id="statContract">0x...FACE4663</div>
-            </div>
-          </div>
-          <div class="info-item">
-            <svg class="info-icon" fill="#787b86" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <div>
-              <div class="info-label">LIQUIDITY</div>
-              <div class="info-value" id="statLiquidity">$245,663</div>
-            </div>
-          </div>
-          <div class="info-item">
-            <svg class="info-icon" fill="#787b86" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            <div>
-              <div class="info-label">HOLDERS</div>
-              <div class="info-value" id="statHolders">1,663</div>
-            </div>
-          </div>
-          <div class="info-item">
-            <svg class="info-icon" fill="#787b86" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/></svg>
-            <div>
-              <div class="info-label">MARKET CAP</div>
-              <div class="info-value" id="statMcap">$4,663,000</div>
-            </div>
-          </div>
-          <div class="info-item">
-            <svg class="info-icon" fill="#787b86" viewBox="0 0 24 24"><path d="M3 13h18v-2H3v2zm0 6h18v-2H3v2zm0-12h18V5H3v2z"/></svg>
-            <div>
-              <div class="info-label">24H VOLUME</div>
-              <div class="info-value" id="statVolume">$663,466</div>
-            </div>
-          </div>
-        </div>
+        <iframe
+          id="chartFrame"
+          title="FACE4663 live chart"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          allow="clipboard-write"
+        ></iframe>
       </div>
     </section>
 
@@ -189,11 +143,11 @@
       <span>FACE4663</span>
     </div>
     <p>Crypto assets are volatile. Always verify the contract address.</p>
-    <span>&copy; <span id="year"></span> FACE4663</span>
+    <span>© <span id="year"></span> FACE4663</span>
   </footer>
 
   <div id="toast" class="toast" role="status" aria-live="polite">Contract copied</div>
 
-  <script src="script.js?v=7"></script>
+  <script src="script.js"></script>
 </body>
 </html>
