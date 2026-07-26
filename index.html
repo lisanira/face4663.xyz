@@ -30,7 +30,7 @@
 
   <main id="top">
     <section class="hero">
-      <div class="eyebrow">ROBINHOOD CHAIN • VANITY CONTRACT</div>
+      <div class="eyebrow">ROBINHOOD CHAIN &bull; VANITY CONTRACT</div>
 
       <h1>
         THE FIRST<br />
@@ -80,43 +80,82 @@
         <a id="chartExternalLink" class="text-link" href="#" target="_blank" rel="noreferrer" style="display:none">View on DexScreener ↗</a>
       </div>
 
-      <div class="chart-shell">
-        <div id="chartPlaceholder" class="chart-placeholder">
-          <div class="chart-grid"></div>
-          <div class="chart-line"></div>
-          <div class="chart-message">
-            <span>Coming Soon</span>
+      <!-- Custom chart container — matches reference design -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-pair">
+            <span id="chartPairName">FACE4663 / WETH</span>
+            <span class="chart-live-badge" id="chartLiveBadge" style="display:none">
+              <span class="live-dot"></span> LIVE
+            </span>
+          </div>
+          <div class="chart-timeframes">
+            <button class="tf-btn active">1D</button>
+            <button class="tf-btn">7D</button>
+            <button class="tf-btn">1M</button>
+            <button class="tf-btn">1Y</button>
+            <button class="tf-btn">ALL</button>
           </div>
         </div>
-        <div class="chart-embed-wrap">
+
+        <div class="chart-viewport">
+          <div id="chartPlaceholder" class="chart-placeholder">
+            <div class="chart-grid"></div>
+            <div class="chart-line"></div>
+            <div class="chart-message">
+              <span>Coming Soon</span>
+            </div>
+          </div>
           <iframe
             id="chartFrame"
             title="FACE4663 live chart"
             loading="lazy"
             referrerpolicy="no-referrer"
             allow="clipboard-write"
+            style="display:none"
           ></iframe>
+        </div>
+
+        <div class="chart-bottom-bar">
+          <div class="chart-stat">
+            <img src="https://img.icons8.com/fluency-systems-filled/20/40C057/document.png" alt="" class="stat-icon" />
+            <div>
+              <span class="chart-stat-label">CONTRACT</span>
+              <span class="chart-stat-value" id="statContract">—</span>
+            </div>
+          </div>
+          <div class="chart-stat">
+            <img src="https://img.icons8.com/fluency-systems-filled/20/40C057/water.png" alt="" class="stat-icon" />
+            <div>
+              <span class="chart-stat-label">LIQUIDITY</span>
+              <span class="chart-stat-value" id="statLiquidity">—</span>
+            </div>
+          </div>
+          <div class="chart-stat">
+            <img src="https://img.icons8.com/fluency-systems-filled/20/40C057/user-group-man-man.png" alt="" class="stat-icon" />
+            <div>
+              <span class="chart-stat-label">HOLDERS</span>
+              <span class="chart-stat-value" id="statHolders">—</span>
+            </div>
+          </div>
+          <div class="chart-stat">
+            <img src="https://img.icons8.com/fluency-systems-filled/20/40C057/bullish.png" alt="" class="stat-icon" />
+            <div>
+              <span class="chart-stat-label">MARKET CAP</span>
+              <span class="chart-stat-value" id="statMcap">—</span>
+            </div>
+          </div>
+          <div class="chart-stat">
+            <img src="https://img.icons8.com/fluency-systems-filled/20/40C057/stack-of-coins.png" alt="" class="stat-icon" />
+            <div>
+              <span class="chart-stat-label">24H VOLUME</span>
+              <span class="chart-stat-value" id="statVolume">—</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div id="chartStats" class="chart-stats" style="display:none">
-        <div class="stat-item">
-          <span class="stat-label">Price</span>
-          <span id="statPrice" class="stat-value">—</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">24h Volume</span>
-          <span id="statVolume" class="stat-value">—</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Liquidity</span>
-          <span id="statLiquidity" class="stat-value">—</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Holders</span>
-          <span id="statHolders" class="stat-value">—</span>
-        </div>
-      </div>
+      <p class="chart-powered">Powered by <a href="https://dexscreener.com" target="_blank" rel="noreferrer">DEXSCREENER</a></p>
     </section>
 
     <section id="about" class="section split-section">
@@ -164,11 +203,11 @@
       <span>FACE4663</span>
     </div>
     <p>Crypto assets are volatile. Always verify the contract address.</p>
-    <span>© <span id="year"></span> FACE4663</span>
+    <span>&copy; <span id="year"></span> FACE4663</span>
   </footer>
 
   <div id="toast" class="toast" role="status" aria-live="polite">Contract copied</div>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>

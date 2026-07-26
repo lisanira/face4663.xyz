@@ -1,12 +1,12 @@
 const CONFIG = {
-  contractAddress: "0x8029c5759a18eb4307a57b56704647530197e26d",
-  buyUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
-  explorerUrl: "https://blockscout.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
-  chartUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d?embed=1&theme=dark",
-  chartExternalUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
-  twitterUrl: "https://x.com/BangGans28",
-  dexUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
-  dexScreenerApi: "https://api.dexscreener.com/latest/dex/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d"
+  contractAddress: "",
+  buyUrl: "#",
+  explorerUrl: "",
+  chartUrl: "",
+  chartExternalUrl: "",
+  twitterUrl: "#",
+  dexUrl: "#",
+  dexScreenerApi: ""
 };
 
 const $ = (id) => document.getElementById(id);
@@ -46,11 +46,12 @@ if (CONFIG.dexUrl && CONFIG.dexUrl !== "#") {
 
 $("year").textContent = new Date().getFullYear();
 
-// Live chart — DexScreener embed (cropped, clean)
+// Live chart
 if (CONFIG.chartUrl) {
   $("chartFrame").src = CONFIG.chartUrl;
   $("chartFrame").style.display = "block";
   $("chartPlaceholder").style.display = "none";
+  $("chartLiveBadge").style.display = "inline-flex";
 }
 
 // Fetch live stats from DexScreener API
@@ -61,22 +62,20 @@ if (CONFIG.dexScreenerApi) {
       const pair = data.pairs && data.pairs[0];
       if (!pair) return;
 
-      const stats = $("chartStats");
-      stats.style.display = "grid";
+      $("chartLiveBadge").style.display = "inline-flex";
 
-      const price = pair.priceUsd ? "$" + parseFloat(pair.priceUsd).toPrecision(4) : "—";
-      const vol = pair.volume && pair.volume.h24 ? "$" + formatNum(pair.volume.h24) : "—";
-      const liq = pair.liquidity && pair.liquidity.usd ? "$" + formatNum(pair.liquidity.usd) : "—";
-
-      $("statPrice").textContent = price;
-      $("statVolume").textContent = vol;
-      $("statLiquidity").textContent = liq;
-      $("statHolders").textContent = pair.info && pair.info.holders ? formatNum(pair.info.holders) : "—";
+      const ca = pair.baseToken ? pair.baseToken.address : "";
+      $("statContract").textContent = ca ? ca.slice(0,4) + "..." + ca.slice(-6) : "—";
+      $("statLiquidity").textContent = pair.liquidity && pair.liquidity.usd ? "$" + fmt(pair.liquidity.usd) : "—";
+      $("statHolders").textContent = pair.info && pair.info.holders ? fmt(pair.info.holders) : "—";
+      $("statMcap").textContent = pair.marketCap ? "$" + fmt(pair.marketCap) : (pair.fdv ? "$" + fmt(pair.fdv) : "—");
+      $("statVolume").textContent = pair.volume && pair.volume.h24 ? "$" + fmt(pair.volume.h24) : "—";
+      $("chartPairName").textContent = (pair.baseToken ? pair.baseToken.symbol : "TOKEN") + " / " + (pair.quoteToken ? pair.quoteToken.symbol : "ETH");
     })
     .catch(() => {});
 }
 
-function formatNum(n) {
+function fmt(n) {
   if (n >= 1e6) return (n / 1e6).toFixed(2) + "M";
   if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
   return Number(n).toFixed(2);
