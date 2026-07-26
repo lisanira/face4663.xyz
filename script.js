@@ -5,31 +5,30 @@ const CONFIG = {
   chartUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d?embed=1&theme=dark",
   chartExternalUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
   twitterUrl: "https://x.com/BangGans28",
-  dexUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d"
+  dexUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
+  dexScreenerApi: "https://api.dexscreener.com/latest/dex/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d"
 };
 
 const $ = (id) => document.getElementById(id);
 
-// Coming Soon state — don't override if address is empty
+// Live state — activate when contract address is set
 if (CONFIG.contractAddress) {
   $("contractAddress").textContent = CONFIG.contractAddress;
-  $("contractAddress").classList.remove("coming-soon-text");
   $("copyButton").disabled = false;
-  $("copyButton").classList.remove("disabled-btn");
-}
 
-if (CONFIG.buyUrl && CONFIG.buyUrl !== "#") {
-  $("buyLink").href = CONFIG.buyUrl;
-  $("buyLink").textContent = "Buy now";
-  $("buyLink").classList.remove("coming-soon-btn");
-  $("buyLink").onclick = null;
-}
-
-if (CONFIG.explorerUrl) {
-  $("explorerLink").href = CONFIG.explorerUrl;
-  $("explorerLink").textContent = "View explorer";
-  $("explorerLink").classList.remove("coming-soon-btn");
-  $("explorerLink").onclick = null;
+  // Activate buttons
+  if (CONFIG.buyUrl && CONFIG.buyUrl !== "#") {
+    $("buyLink").href = CONFIG.buyUrl;
+    $("buyLink").textContent = "Buy now";
+    $("buyLink").classList.remove("coming-soon-btn");
+    $("buyLink").onclick = null;
+  }
+  if (CONFIG.explorerUrl) {
+    $("explorerLink").href = CONFIG.explorerUrl;
+    $("explorerLink").textContent = "View explorer";
+    $("explorerLink").classList.remove("coming-soon-btn");
+    $("explorerLink").onclick = null;
+  }
 }
 
 if (CONFIG.chartExternalUrl) {
@@ -47,13 +46,43 @@ if (CONFIG.dexUrl && CONFIG.dexUrl !== "#") {
 
 $("year").textContent = new Date().getFullYear();
 
-// Live chart — DexScreener embed
+// Live chart — DexScreener embed (cropped, clean)
 if (CONFIG.chartUrl) {
   $("chartFrame").src = CONFIG.chartUrl;
   $("chartFrame").style.display = "block";
   $("chartPlaceholder").style.display = "none";
 }
 
+// Fetch live stats from DexScreener API
+if (CONFIG.dexScreenerApi) {
+  fetch(CONFIG.dexScreenerApi)
+    .then((r) => r.json())
+    .then((data) => {
+      const pair = data.pairs && data.pairs[0];
+      if (!pair) return;
+
+      const stats = $("chartStats");
+      stats.style.display = "grid";
+
+      const price = pair.priceUsd ? "$" + parseFloat(pair.priceUsd).toPrecision(4) : "—";
+      const vol = pair.volume && pair.volume.h24 ? "$" + formatNum(pair.volume.h24) : "—";
+      const liq = pair.liquidity && pair.liquidity.usd ? "$" + formatNum(pair.liquidity.usd) : "—";
+
+      $("statPrice").textContent = price;
+      $("statVolume").textContent = vol;
+      $("statLiquidity").textContent = liq;
+      $("statHolders").textContent = pair.info && pair.info.holders ? formatNum(pair.info.holders) : "—";
+    })
+    .catch(() => {});
+}
+
+function formatNum(n) {
+  if (n >= 1e6) return (n / 1e6).toFixed(2) + "M";
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
+  return Number(n).toFixed(2);
+}
+
+// Copy CA
 $("copyButton").addEventListener("click", async () => {
   if (!CONFIG.contractAddress) return;
   try {

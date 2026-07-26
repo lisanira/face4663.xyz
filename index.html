@@ -77,7 +77,7 @@
           <span class="eyebrow">LIVE MARKET</span>
           <h2>Token chart</h2>
         </div>
-        <a id="chartExternalLink" class="text-link" href="#" target="_blank" rel="noreferrer" style="display:none">Open full chart ↗</a>
+        <a id="chartExternalLink" class="text-link" href="#" target="_blank" rel="noreferrer" style="display:none">View on DexScreener ↗</a>
       </div>
 
       <div class="chart-shell">
@@ -88,13 +88,34 @@
             <span>Coming Soon</span>
           </div>
         </div>
-        <iframe
-          id="chartFrame"
-          title="FACE4663 live chart"
-          loading="lazy"
-          referrerpolicy="no-referrer"
-          allow="clipboard-write"
-        ></iframe>
+        <div class="chart-embed-wrap">
+          <iframe
+            id="chartFrame"
+            title="FACE4663 live chart"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            allow="clipboard-write"
+          ></iframe>
+        </div>
+      </div>
+
+      <div id="chartStats" class="chart-stats" style="display:none">
+        <div class="stat-item">
+          <span class="stat-label">Price</span>
+          <span id="statPrice" class="stat-value">—</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">24h Volume</span>
+          <span id="statVolume" class="stat-value">—</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Liquidity</span>
+          <span id="statLiquidity" class="stat-value">—</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Holders</span>
+          <span id="statHolders" class="stat-value">—</span>
+        </div>
       </div>
     </section>
 
@@ -148,6 +169,6 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite">Contract copied</div>
 
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>
