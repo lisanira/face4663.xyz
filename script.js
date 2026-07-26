@@ -1,11 +1,11 @@
 const CONFIG = {
-  contractAddress: "",
-  buyUrl: "#",
-  explorerUrl: "",
-  chartUrl: "",
-  chartExternalUrl: "",
-  twitterUrl: "#",
-  dexUrl: "#"
+  contractAddress: "0x8029c5759a18eb4307a57b56704647530197e26d",
+  buyUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
+  explorerUrl: "https://blockscout.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
+  chartUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d?embed=1&theme=dark",
+  chartExternalUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
+  twitterUrl: "https://x.com/BangGans28",
+  dexUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d"
 };
 
 const $ = (id) => document.getElementById(id);
