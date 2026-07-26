@@ -1,8 +1,9 @@
 const CONFIG = {
   contractAddress: "",
   buyUrl: "#",
-  explorerUrl: "#",
+  explorerUrl: "",
   chartUrl: "",
+  chartExternalUrl: "",
   twitterUrl: "#",
   dexUrl: "#"
 };
@@ -12,7 +13,9 @@ const $ = (id) => document.getElementById(id);
 // Coming Soon state — don't override if address is empty
 if (CONFIG.contractAddress) {
   $("contractAddress").textContent = CONFIG.contractAddress;
+  $("contractAddress").classList.remove("coming-soon-text");
   $("copyButton").disabled = false;
+  $("copyButton").classList.remove("disabled-btn");
 }
 
 if (CONFIG.buyUrl && CONFIG.buyUrl !== "#") {
@@ -22,7 +25,7 @@ if (CONFIG.buyUrl && CONFIG.buyUrl !== "#") {
   $("buyLink").onclick = null;
 }
 
-if (CONFIG.explorerUrl && CONFIG.explorerUrl !== "#") {
+if (CONFIG.explorerUrl) {
   $("explorerLink").href = CONFIG.explorerUrl;
   $("explorerLink").textContent = "View explorer";
   $("explorerLink").classList.remove("coming-soon-btn");
@@ -31,6 +34,7 @@ if (CONFIG.explorerUrl && CONFIG.explorerUrl !== "#") {
 
 if (CONFIG.chartExternalUrl) {
   $("chartExternalLink").href = CONFIG.chartExternalUrl;
+  $("chartExternalLink").style.display = "inline-flex";
 }
 
 if (CONFIG.twitterUrl && CONFIG.twitterUrl !== "#") {
@@ -43,6 +47,7 @@ if (CONFIG.dexUrl && CONFIG.dexUrl !== "#") {
 
 $("year").textContent = new Date().getFullYear();
 
+// Live chart — DexScreener embed
 if (CONFIG.chartUrl) {
   $("chartFrame").src = CONFIG.chartUrl;
   $("chartFrame").style.display = "block";
