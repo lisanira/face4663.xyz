@@ -1,17 +1,17 @@
 const CONFIG = {
-  contractAddress: "",
-  buyUrl: "#",
-  explorerUrl: "",
-  chartUrl: "",
-  chartExternalUrl: "",
-  twitterUrl: "#",
-  dexUrl: "#",
-  dexScreenerApi: ""
+  contractAddress: "0x8029c5759a18eb4307a57b56704647530197e26d",
+  buyUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
+  explorerUrl: "https://blockscout.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
+  chartExternalUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
+  twitterUrl: "https://x.com/BangGans28",
+  dexUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
+  pairAddress: "0x8029c5759a18eb4307a57b56704647530197e26d",
+  geckoTerminalPool: "0x8029c5759a18eb4307a57b56704647530197e26d"
 };
 
 const $ = (id) => document.getElementById(id);
 
-// Live state — activate when contract address is set
+// Live state
 if (CONFIG.contractAddress) {
   $("contractAddress").textContent = CONFIG.contractAddress;
   $("copyButton").disabled = false;
@@ -45,7 +45,7 @@ if (CONFIG.dexUrl && CONFIG.dexUrl !== "#") {
 
 $("year").textContent = new Date().getFullYear();
 
-// === TradingView Lightweight Charts ===
+// === TradingView Lightweight Charts — Real Data ===
 function initChart() {
   if (typeof LightweightCharts === 'undefined') return;
 
@@ -70,11 +70,10 @@ function initChart() {
       borderColor: '#2a2e39',
       timeVisible: true,
       secondsVisible: false,
-      barSpacing: 10,
     },
   });
 
-  const candlestickSeries = chart.addSeries(LightweightCharts.CandlestickSeries, {
+  const candleSeries = chart.addCandlestickSeries({
     upColor: '#36fb36',
     downColor: '#ff3131',
     borderVisible: false,
@@ -82,7 +81,7 @@ function initChart() {
     wickDownColor: '#ff3131',
   });
 
-  const volumeSeries = chart.addSeries(LightweightCharts.HistogramSeries, {
+  const volumeSeries = chart.addHistogramSeries({
     color: '#26a69a',
     priceFormat: { type: 'volume' },
     priceScaleId: '',
@@ -92,69 +91,40 @@ function initChart() {
     scaleMargins: { top: 0.8, bottom: 0 },
   });
 
-  // Generate simulated data (replace with API data later)
-  const generateData = () => {
-    const data = [];
-    const volumeData = [];
-    let time = Math.floor(Date.now() / 1000) - (200 * 3600);
-    let price = 0.00000005;
+  // Fetch real OHLCV from GeckoTerminal
+  async function loadChartData() {
+    try {
+      const res = await fetch(
+        `https://api.geckoterminal.com/api/v2/networks/robinhood/pools/${CONFIG.geckoTerminalPool}/ohlcv/hour?limit=200`
+      );
+      const data = await res.json();
+      const ohlcv = data.data.attributes.ohlcv_list;
 
-    for (let i = 0; i < 150; i++) {
-      const step = 3600;
-      let volatility = (Math.random() - 0.48) * 0.00000001;
-      if (i > 120) volatility += 0.00000005;
+      // GeckoTerminal returns [timestamp, open, high, low, close, volume]
+      const candles = ohlcv.map(d => ({
+        time: d[0],
+        open: d[1],
+        high: d[2],
+        low: d[3],
+        close: d[4],
+      })).reverse();
 
-      const open = price;
-      const close = price + volatility;
-      const high = Math.max(open, close) + Math.random() * 0.000000005;
-      const low = Math.min(open, close) - Math.random() * 0.000000005;
+      const volumes = ohlcv.map(d => ({
+        time: d[0],
+        value: d[5],
+        color: d[4] >= d[1] ? 'rgba(54, 251, 54, 0.5)' : 'rgba(255, 49, 49, 0.5)',
+      })).reverse();
 
-      price = Math.max(0.000000001, close);
-
-      const isUp = close > open;
-      const volume = Math.random() * (i > 130 ? 100000000 : 20000000);
-
-      const barTime = time + (i * step);
-      data.push({ time: barTime, open, high, low, close });
-      volumeData.push({
-        time: barTime,
-        value: volume,
-        color: isUp ? 'rgba(54, 251, 54, 0.5)' : 'rgba(255, 49, 49, 0.5)'
-      });
+      candleSeries.setData(candles);
+      volumeSeries.setData(volumes);
+      chart.timeScale().fitContent();
+    } catch (e) {
+      console.log('Chart data error:', e);
     }
-    return { candles: data, volumes: volumeData };
-  };
+  }
 
-  const chartData = generateData();
-  candlestickSeries.setData(chartData.candles);
-  volumeSeries.setData(chartData.volumes);
+  loadChartData();
 
-  // Live update simulation
-  let lastBar = chartData.candles[chartData.candles.length - 1];
-  let lastVolume = chartData.volumes[chartData.volumes.length - 1];
-
-  setInterval(() => {
-    const change = (Math.random() - 0.4) * 0.000000002;
-    const newClose = lastBar.close + change;
-
-    lastBar = {
-      ...lastBar,
-      close: newClose,
-      high: Math.max(lastBar.high, newClose),
-      low: Math.min(lastBar.low, newClose),
-    };
-
-    candlestickSeries.update(lastBar);
-
-    lastVolume = {
-      ...lastVolume,
-      value: lastVolume.value + Math.random() * 100000,
-      color: lastBar.close > lastBar.open ? 'rgba(54, 251, 54, 0.5)' : 'rgba(255, 49, 49, 0.5)'
-    };
-    volumeSeries.update(lastVolume);
-  }, 2000);
-
-  // Responsive
   window.addEventListener('resize', () => {
     chart.resize(container.clientWidth, container.clientHeight);
   });
@@ -167,24 +137,34 @@ if (document.readyState === 'loading') {
   initChart();
 }
 
-// Fetch live stats from DexScreener API
-if (CONFIG.dexScreenerApi) {
-  fetch(CONFIG.dexScreenerApi)
-    .then((r) => r.json())
-    .then((data) => {
-      const pair = data.pairs && data.pairs[0];
-      if (!pair) return;
+// Fetch live stats from DexScreener
+async function loadStats() {
+  try {
+    const res = await fetch(
+      `https://api.dexscreener.com/latest/dex/search?q=${CONFIG.contractAddress}`
+    );
+    const data = await res.json();
+    const pair = data.pairs && data.pairs[0];
+    if (!pair) return;
 
-      const ca = pair.baseToken ? pair.baseToken.address : "";
-      $("statContract").textContent = ca ? ca.slice(0,4) + "..." + ca.slice(-6) : "—";
-      $("statLiquidity").textContent = pair.liquidity && pair.liquidity.usd ? "$" + fmt(pair.liquidity.usd) : "—";
-      $("statHolders").textContent = pair.info && pair.info.holders ? fmt(pair.info.holders) : "—";
-      $("statMcap").textContent = pair.marketCap ? "$" + fmt(pair.marketCap) : (pair.fdv ? "$" + fmt(pair.fdv) : "—");
-      $("statVolume").textContent = pair.volume && pair.volume.h24 ? "$" + fmt(pair.volume.h24) : "—";
-      $("chartPairName").textContent = (pair.baseToken ? pair.baseToken.symbol : "TOKEN") + " / " + (pair.quoteToken ? pair.quoteToken.symbol : "ETH");
-    })
-    .catch(() => {});
+    // Update pair name
+    $("chartPairName").textContent =
+      (pair.baseToken ? pair.baseToken.symbol : "TOKEN") + " / " +
+      (pair.quoteToken ? pair.quoteToken.symbol : "ETH");
+
+    // Update stats
+    const ca = pair.baseToken ? pair.baseToken.address : "";
+    $("statContract").textContent = ca ? ca.slice(0, 4) + "..." + ca.slice(-6) : "—";
+    $("statLiquidity").textContent = pair.liquidity && pair.liquidity.usd ? "$" + fmt(pair.liquidity.usd) : "—";
+    $("statMcap").textContent = pair.marketCap ? "$" + fmt(pair.marketCap) : (pair.fdv ? "$" + fmt(pair.fdv) : "—");
+    $("statVolume").textContent = pair.volume && pair.volume.h24 ? "$" + fmt(pair.volume.h24) : "—";
+    $("statHolders").textContent = pair.info && pair.info.holders ? fmt(pair.info.holders) : "—";
+  } catch (e) {
+    console.log('Stats error:', e);
+  }
 }
+
+loadStats();
 
 function fmt(n) {
   if (n >= 1e6) return (n / 1e6).toFixed(2) + "M";
