@@ -306,18 +306,14 @@ h2 {
 .chart-embed-wrap {
   position: relative;
   width: 100%;
-  height: 460px;
-  overflow: hidden;
+  min-height: 460px;
 }
 
 #chartFrame {
   display: none;
-  width: 120%;
-  height: 560px;
+  width: 100%;
+  height: 500px;
   border: 0;
-  margin-left: -10%;
-  margin-top: -30px;
-  pointer-events: auto;
 }
 
 .chart-stats {
