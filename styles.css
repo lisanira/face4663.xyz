@@ -293,276 +293,156 @@ h2 {
   font-size: 0.9rem;
 }
 
-/* === Chart Card (DexScreener style) === */
-.chart-card {
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: #0d0f0d;
+/* === Chart Card (TradingView Lightweight) === */
+.dashboard-container {
+  background-color: #131722;
+  border: 1px solid #2a2e39;
+  border-radius: 16px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(200,255,61,0.06);
+  padding: 20px;
 }
 
 .chart-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--line);
+  align-items: center;
+  padding-bottom: 15px;
 }
 
-.chart-pair {
+.pair-info {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-weight: 700;
-  font-size: 0.95rem;
 }
 
-.chart-live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: rgba(64,192,87,0.15);
-  color: #40c057;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+.pair-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e0e3eb;
 }
 
-.live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #40c057;
-  animation: pulse-dot 1.5s infinite;
+.live-badge {
+  background-color: #1e3a2f;
+  color: #36fb36;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.chart-timeframes {
+.timeframes {
   display: flex;
-  gap: 4px;
+  gap: 5px;
 }
 
 .tf-btn {
-  padding: 4px 10px;
+  background: none;
   border: 1px solid transparent;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 600;
+  color: #787b86;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 14px;
   transition: all 0.15s;
 }
 
 .tf-btn:hover {
-  color: var(--text);
-  border-color: var(--line);
+  background-color: #2a2e39;
+  color: #e0e3eb;
 }
 
 .tf-btn.active {
-  color: var(--text);
-  border-color: rgba(200,255,61,0.4);
-  background: rgba(200,255,61,0.08);
+  background-color: #1a1e2a;
+  border-color: #363a45;
+  color: #e0e3eb;
 }
 
-.chart-viewport {
+#chart-container {
+  width: 100%;
+  height: 450px;
   position: relative;
-  width: 100%;
-  height: 420px;
-  overflow: hidden;
 }
 
-#chartFrame {
-  display: none;
-  width: 100%;
-  height: 100%;
-  border: 0;
+.powered-by {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 12px;
+  color: #787b86;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.chart-bottom-bar {
+.dex-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.info-panel {
   display: flex;
   justify-content: space-around;
-  padding: 14px 16px;
-  border-top: 1px solid var(--line);
-  background: rgba(0,0,0,0.4);
+  border-top: 1px solid #2a2e39;
+  margin-top: 10px;
+  padding-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.chart-stat {
+.info-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 15px;
 }
 
-.stat-icon {
-  width: 18px;
-  height: 18px;
-  opacity: 0.7;
+.info-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.8;
 }
 
-.chart-stat-label {
-  display: block;
-  font-size: 0.6rem;
+.info-label {
+  font-size: 12px;
+  color: #787b86;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
 }
 
-.chart-stat-value {
-  display: block;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-}
-
-.chart-powered {
-  text-align: right;
-  font-size: 0.65rem;
-  color: var(--muted);
-  margin-top: 8px;
-  opacity: 0.5;
-}
-
-.chart-powered a {
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.chart-powered a:hover {
-  color: var(--accent);
-}
-
-.chart-placeholder {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-}
-
-.chart-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.055) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: linear-gradient(to bottom, black, transparent);
-}
-
-.chart-line {
-  position: absolute;
-  width: 68%;
-  height: 36%;
-  left: 15%;
-  bottom: 24%;
-  border-top: 5px solid var(--accent);
-  border-radius: 50%;
-  transform: rotate(-6deg) skewX(-16deg);
-  filter: drop-shadow(0 0 22px rgba(200,255,61,0.25));
-}
-
-.chart-message {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 22px;
-  text-align: center;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: rgba(7,8,7,0.82);
-  backdrop-filter: blur(14px);
-}
-
-.chart-message span {
-  font-weight: 900;
+.info-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e0e3eb;
 }
 
 @media (max-width: 720px) {
+  .dashboard-container {
+    padding: 12px;
+  }
+
   .chart-header {
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
   }
 
-  .chart-viewport {
+  #chart-container {
     height: 300px;
   }
 
-  .chart-bottom-bar {
+  .info-panel {
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 16px;
     justify-content: center;
   }
 
-  .chart-stat {
+  .info-item {
     min-width: 120px;
   }
-}
-
-
-
-.chart-placeholder {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-}
-
-.chart-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.055) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: linear-gradient(to bottom, black, transparent);
-}
-
-.chart-line {
-  position: absolute;
-  width: 68%;
-  height: 36%;
-  left: 15%;
-  bottom: 24%;
-  border-top: 5px solid var(--accent);
-  border-radius: 50%;
-  transform: rotate(-6deg) skewX(-16deg);
-  filter: drop-shadow(0 0 22px rgba(200,255,61,0.25));
-}
-
-.chart-message {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 22px;
-  text-align: center;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: rgba(7,8,7,0.82);
-  backdrop-filter: blur(14px);
-}
-
-.chart-message span {
-  font-weight: 900;
-}
-
-.chart-message small {
-  color: var(--muted);
 }
 
 .split-section {
@@ -666,11 +546,315 @@ footer p {
 
   .proof-row,
   .link-grid,
-  .split-section {
+  /* === Chart Card (TradingView Lightweight) === */
+.dashboard-container {
+  background-color: #131722;
+  border: 1px solid #2a2e39;
+  border-radius: 16px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  overflow: hidden;
+  padding: 20px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.pair-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pair-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e0e3eb;
+}
+
+.live-badge {
+  background-color: #1e3a2f;
+  color: #36fb36;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.timeframes {
+  display: flex;
+  gap: 5px;
+}
+
+.tf-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: #787b86;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s;
+}
+
+.tf-btn:hover {
+  background-color: #2a2e39;
+  color: #e0e3eb;
+}
+
+.tf-btn.active {
+  background-color: #1a1e2a;
+  border-color: #363a45;
+  color: #e0e3eb;
+}
+
+#chart-container {
+  width: 100%;
+  height: 450px;
+  position: relative;
+}
+
+.powered-by {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 12px;
+  color: #787b86;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dex-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.info-panel {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #2a2e39;
+  margin-top: 10px;
+  padding-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.info-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.8;
+}
+
+.info-label {
+  font-size: 12px;
+  color: #787b86;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.info-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e0e3eb;
+}
+
+@media (max-width: 720px) {
+  .dashboard-container {
+    padding: 12px;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  #chart-container {
+    height: 300px;
+  }
+
+  .info-panel {
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .info-item {
+    min-width: 120px;
+  }
+}
+
+.split-section {
     grid-template-columns: 1fr;
   }
 
-  .split-section {
+  /* === Chart Card (TradingView Lightweight) === */
+.dashboard-container {
+  background-color: #131722;
+  border: 1px solid #2a2e39;
+  border-radius: 16px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  overflow: hidden;
+  padding: 20px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.pair-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pair-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e0e3eb;
+}
+
+.live-badge {
+  background-color: #1e3a2f;
+  color: #36fb36;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.timeframes {
+  display: flex;
+  gap: 5px;
+}
+
+.tf-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: #787b86;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s;
+}
+
+.tf-btn:hover {
+  background-color: #2a2e39;
+  color: #e0e3eb;
+}
+
+.tf-btn.active {
+  background-color: #1a1e2a;
+  border-color: #363a45;
+  color: #e0e3eb;
+}
+
+#chart-container {
+  width: 100%;
+  height: 450px;
+  position: relative;
+}
+
+.powered-by {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 12px;
+  color: #787b86;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dex-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.info-panel {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #2a2e39;
+  margin-top: 10px;
+  padding-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.info-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.8;
+}
+
+.info-label {
+  font-size: 12px;
+  color: #787b86;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.info-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e0e3eb;
+}
+
+@media (max-width: 720px) {
+  .dashboard-container {
+    padding: 12px;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  #chart-container {
+    height: 300px;
+  }
+
+  .info-panel {
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .info-item {
+    min-width: 120px;
+  }
+}
+
+.split-section {
     gap: 20px;
   }
 

@@ -16,7 +16,6 @@ if (CONFIG.contractAddress) {
   $("contractAddress").textContent = CONFIG.contractAddress;
   $("copyButton").disabled = false;
 
-  // Activate buttons
   if (CONFIG.buyUrl && CONFIG.buyUrl !== "#") {
     $("buyLink").href = CONFIG.buyUrl;
     $("buyLink").textContent = "Buy now";
@@ -46,12 +45,126 @@ if (CONFIG.dexUrl && CONFIG.dexUrl !== "#") {
 
 $("year").textContent = new Date().getFullYear();
 
-// Live chart
-if (CONFIG.chartUrl) {
-  $("chartFrame").src = CONFIG.chartUrl;
-  $("chartFrame").style.display = "block";
-  $("chartPlaceholder").style.display = "none";
-  $("chartLiveBadge").style.display = "inline-flex";
+// === TradingView Lightweight Charts ===
+function initChart() {
+  if (typeof LightweightCharts === 'undefined') return;
+
+  const container = document.getElementById('chart-container');
+  const chart = LightweightCharts.createChart(container, {
+    layout: {
+      background: { color: '#131722' },
+      textColor: '#d1d4dc',
+    },
+    grid: {
+      vertLines: { color: 'rgba(42, 46, 57, 0)' },
+      horzLines: { color: '#2a2e39' },
+    },
+    crosshair: {
+      mode: LightweightCharts.CrosshairMode.Normal,
+    },
+    priceScale: {
+      borderColor: '#2a2e39',
+      scaleMargins: { top: 0.1, bottom: 0.2 },
+    },
+    timeScale: {
+      borderColor: '#2a2e39',
+      timeVisible: true,
+      secondsVisible: false,
+      barSpacing: 10,
+    },
+  });
+
+  const candlestickSeries = chart.addSeries(LightweightCharts.CandlestickSeries, {
+    upColor: '#36fb36',
+    downColor: '#ff3131',
+    borderVisible: false,
+    wickUpColor: '#36fb36',
+    wickDownColor: '#ff3131',
+  });
+
+  const volumeSeries = chart.addSeries(LightweightCharts.HistogramSeries, {
+    color: '#26a69a',
+    priceFormat: { type: 'volume' },
+    priceScaleId: '',
+  });
+
+  volumeSeries.priceScale().applyOptions({
+    scaleMargins: { top: 0.8, bottom: 0 },
+  });
+
+  // Generate simulated data (replace with API data later)
+  const generateData = () => {
+    const data = [];
+    const volumeData = [];
+    let time = Math.floor(Date.now() / 1000) - (200 * 3600);
+    let price = 0.00000005;
+
+    for (let i = 0; i < 150; i++) {
+      const step = 3600;
+      let volatility = (Math.random() - 0.48) * 0.00000001;
+      if (i > 120) volatility += 0.00000005;
+
+      const open = price;
+      const close = price + volatility;
+      const high = Math.max(open, close) + Math.random() * 0.000000005;
+      const low = Math.min(open, close) - Math.random() * 0.000000005;
+
+      price = Math.max(0.000000001, close);
+
+      const isUp = close > open;
+      const volume = Math.random() * (i > 130 ? 100000000 : 20000000);
+
+      const barTime = time + (i * step);
+      data.push({ time: barTime, open, high, low, close });
+      volumeData.push({
+        time: barTime,
+        value: volume,
+        color: isUp ? 'rgba(54, 251, 54, 0.5)' : 'rgba(255, 49, 49, 0.5)'
+      });
+    }
+    return { candles: data, volumes: volumeData };
+  };
+
+  const chartData = generateData();
+  candlestickSeries.setData(chartData.candles);
+  volumeSeries.setData(chartData.volumes);
+
+  // Live update simulation
+  let lastBar = chartData.candles[chartData.candles.length - 1];
+  let lastVolume = chartData.volumes[chartData.volumes.length - 1];
+
+  setInterval(() => {
+    const change = (Math.random() - 0.4) * 0.000000002;
+    const newClose = lastBar.close + change;
+
+    lastBar = {
+      ...lastBar,
+      close: newClose,
+      high: Math.max(lastBar.high, newClose),
+      low: Math.min(lastBar.low, newClose),
+    };
+
+    candlestickSeries.update(lastBar);
+
+    lastVolume = {
+      ...lastVolume,
+      value: lastVolume.value + Math.random() * 100000,
+      color: lastBar.close > lastBar.open ? 'rgba(54, 251, 54, 0.5)' : 'rgba(255, 49, 49, 0.5)'
+    };
+    volumeSeries.update(lastVolume);
+  }, 2000);
+
+  // Responsive
+  window.addEventListener('resize', () => {
+    chart.resize(container.clientWidth, container.clientHeight);
+  });
+}
+
+// Init chart when library loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initChart);
+} else {
+  initChart();
 }
 
 // Fetch live stats from DexScreener API
@@ -61,8 +174,6 @@ if (CONFIG.dexScreenerApi) {
     .then((data) => {
       const pair = data.pairs && data.pairs[0];
       if (!pair) return;
-
-      $("chartLiveBadge").style.display = "inline-flex";
 
       const ca = pair.baseToken ? pair.baseToken.address : "";
       $("statContract").textContent = ca ? ca.slice(0,4) + "..." + ca.slice(-6) : "—";
