@@ -5,8 +5,9 @@ const CONFIG = {
   chartExternalUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
   twitterUrl: "https://x.com/BangGans28",
   dexUrl: "https://dexscreener.com/robinhood/0x8029c5759a18eb4307a57b56704647530197e26d",
-  pairAddress: "0x8029c5759a18eb4307a57b56704647530197e26d",
-  geckoTerminalPool: "0x8029c5759a18eb4307a57b56704647530197e26d"
+  // Cloudflare Worker URL — deploy worker.js first, then paste URL here
+  // Example: "https://face4663-api.yourname.workers.dev"
+  proxyUrl: ""
 };
 
 const $ = (id) => document.getElementById(id);
@@ -45,63 +46,71 @@ if (CONFIG.dexUrl && CONFIG.dexUrl !== "#") {
 
 $("year").textContent = new Date().getFullYear();
 
+// Helper: fetch via CORS proxy if available, direct if not
+async function proxyFetch(url) {
+  if (CONFIG.proxyUrl) {
+    const res = await fetch(`${CONFIG.proxyUrl}?url=${encodeURIComponent(url)}`);
+    return res.json();
+  }
+  // Direct fetch (works for DexScreener which has CORS)
+  const res = await fetch(url);
+  return res.json();
+}
+
 // === TradingView Lightweight Charts — Real Data ===
 function initChart() {
-  if (typeof LightweightCharts === 'undefined') return;
+  if (typeof LightweightCharts === "undefined") return;
 
-  const container = document.getElementById('chart-container');
+  const container = document.getElementById("chart-container");
   const chart = LightweightCharts.createChart(container, {
     layout: {
-      background: { color: '#131722' },
-      textColor: '#d1d4dc',
+      background: { color: "#131722" },
+      textColor: "#d1d4dc",
     },
     grid: {
-      vertLines: { color: 'rgba(42, 46, 57, 0)' },
-      horzLines: { color: '#2a2e39' },
+      vertLines: { color: "rgba(42, 46, 57, 0)" },
+      horzLines: { color: "#2a2e39" },
     },
     crosshair: {
       mode: LightweightCharts.CrosshairMode.Normal,
     },
     priceScale: {
-      borderColor: '#2a2e39',
+      borderColor: "#2a2e39",
       scaleMargins: { top: 0.1, bottom: 0.2 },
     },
     timeScale: {
-      borderColor: '#2a2e39',
+      borderColor: "#2a2e39",
       timeVisible: true,
       secondsVisible: false,
     },
   });
 
   const candleSeries = chart.addCandlestickSeries({
-    upColor: '#36fb36',
-    downColor: '#ff3131',
+    upColor: "#36fb36",
+    downColor: "#ff3131",
     borderVisible: false,
-    wickUpColor: '#36fb36',
-    wickDownColor: '#ff3131',
+    wickUpColor: "#36fb36",
+    wickDownColor: "#ff3131",
   });
 
   const volumeSeries = chart.addHistogramSeries({
-    color: '#26a69a',
-    priceFormat: { type: 'volume' },
-    priceScaleId: '',
+    color: "#26a69a",
+    priceFormat: { type: "volume" },
+    priceScaleId: "",
   });
 
   volumeSeries.priceScale().applyOptions({
     scaleMargins: { top: 0.8, bottom: 0 },
   });
 
-  // Fetch real OHLCV from GeckoTerminal
-  async function loadChartData() {
+  // Fetch real OHLCV data
+  async function loadChart() {
     try {
-      const res = await fetch(
-        `https://api.geckoterminal.com/api/v2/networks/robinhood/pools/${CONFIG.geckoTerminalPool}/ohlcv/hour?limit=200`
-      );
-      const data = await res.json();
+      const url = `https://api.geckoterminal.com/api/v2/networks/robinhood/pools/${CONFIG.contractAddress}/ohlcv/hour?limit=200`;
+      const data = await proxyFetch(url);
       const ohlcv = data.data.attributes.ohlcv_list;
 
-      // GeckoTerminal returns [timestamp, open, high, low, close, volume]
-      const candles = ohlcv.map(d => ({
+      const candles = ohlcv.map((d) => ({
         time: d[0],
         open: d[1],
         high: d[2],
@@ -109,58 +118,55 @@ function initChart() {
         close: d[4],
       })).reverse();
 
-      const volumes = ohlcv.map(d => ({
+      const volumes = ohlcv.map((d) => ({
         time: d[0],
         value: d[5],
-        color: d[4] >= d[1] ? 'rgba(54, 251, 54, 0.5)' : 'rgba(255, 49, 49, 0.5)',
+        color: d[4] >= d[1] ? "rgba(54, 251, 54, 0.5)" : "rgba(255, 49, 49, 0.5)",
       })).reverse();
 
       candleSeries.setData(candles);
       volumeSeries.setData(volumes);
       chart.timeScale().fitContent();
     } catch (e) {
-      console.log('Chart data error:', e);
+      console.log("Chart load error:", e);
     }
   }
 
-  loadChartData();
+  loadChart();
 
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     chart.resize(container.clientWidth, container.clientHeight);
   });
 }
 
-// Init chart when library loads
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initChart);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initChart);
 } else {
   initChart();
 }
 
-// Fetch live stats from DexScreener
+// Fetch live stats from DexScreener (CORS OK)
 async function loadStats() {
   try {
-    const res = await fetch(
+    const data = await proxyFetch(
       `https://api.dexscreener.com/latest/dex/search?q=${CONFIG.contractAddress}`
     );
-    const data = await res.json();
     const pair = data.pairs && data.pairs[0];
     if (!pair) return;
 
-    // Update pair name
     $("chartPairName").textContent =
-      (pair.baseToken ? pair.baseToken.symbol : "TOKEN") + " / " +
+      (pair.baseToken ? pair.baseToken.symbol : "TOKEN") +
+      " / " +
       (pair.quoteToken ? pair.quoteToken.symbol : "ETH");
 
-    // Update stats
     const ca = pair.baseToken ? pair.baseToken.address : "";
     $("statContract").textContent = ca ? ca.slice(0, 4) + "..." + ca.slice(-6) : "—";
     $("statLiquidity").textContent = pair.liquidity && pair.liquidity.usd ? "$" + fmt(pair.liquidity.usd) : "—";
-    $("statMcap").textContent = pair.marketCap ? "$" + fmt(pair.marketCap) : (pair.fdv ? "$" + fmt(pair.fdv) : "—");
+    $("statMcap").textContent = pair.marketCap ? "$" + fmt(pair.marketCap) : pair.fdv ? "$" + fmt(pair.fdv) : "—";
     $("statVolume").textContent = pair.volume && pair.volume.h24 ? "$" + fmt(pair.volume.h24) : "—";
     $("statHolders").textContent = pair.info && pair.info.holders ? fmt(pair.info.holders) : "—";
   } catch (e) {
-    console.log('Stats error:', e);
+    console.log("Stats error:", e);
   }
 }
 
