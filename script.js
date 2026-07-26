@@ -4,7 +4,6 @@ const CONFIG = {
   explorerUrl: "#",
   chartUrl: "",
   twitterUrl: "#",
-  telegramUrl: "#",
   dexUrl: "#"
 };
 
@@ -15,7 +14,6 @@ $("buyLink").href = CONFIG.buyUrl;
 $("explorerLink").href = CONFIG.explorerUrl;
 $("chartExternalLink").href = CONFIG.dexUrl;
 $("twitterLink").href = CONFIG.twitterUrl;
-$("telegramLink").href = CONFIG.telegramUrl;
 $("dexLink").href = CONFIG.dexUrl;
 $("year").textContent = new Date().getFullYear();
 
