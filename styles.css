@@ -485,3 +485,24 @@ footer p {
     gap: 18px;
   }
 }
+
+/* Coming Soon state */
+.coming-soon-card code {
+  color: var(--accent);
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+.coming-soon-card .copy-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.coming-soon-btn {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}

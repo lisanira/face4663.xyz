@@ -1,5 +1,5 @@
 const CONFIG = {
-  contractAddress: "0xYOUR_CONTRACT_ADDRESS_FACE4663",
+  contractAddress: "",
   buyUrl: "#",
   explorerUrl: "#",
   chartUrl: "",
@@ -9,12 +9,38 @@ const CONFIG = {
 
 const $ = (id) => document.getElementById(id);
 
-$("contractAddress").textContent = CONFIG.contractAddress;
-$("buyLink").href = CONFIG.buyUrl;
-$("explorerLink").href = CONFIG.explorerUrl;
-$("chartExternalLink").href = CONFIG.dexUrl;
-$("twitterLink").href = CONFIG.twitterUrl;
-$("dexLink").href = CONFIG.dexUrl;
+// Coming Soon state — don't override if address is empty
+if (CONFIG.contractAddress) {
+  $("contractAddress").textContent = CONFIG.contractAddress;
+  $("copyButton").disabled = false;
+}
+
+if (CONFIG.buyUrl && CONFIG.buyUrl !== "#") {
+  $("buyLink").href = CONFIG.buyUrl;
+  $("buyLink").textContent = "Buy now";
+  $("buyLink").classList.remove("coming-soon-btn");
+  $("buyLink").onclick = null;
+}
+
+if (CONFIG.explorerUrl && CONFIG.explorerUrl !== "#") {
+  $("explorerLink").href = CONFIG.explorerUrl;
+  $("explorerLink").textContent = "View explorer";
+  $("explorerLink").classList.remove("coming-soon-btn");
+  $("explorerLink").onclick = null;
+}
+
+if (CONFIG.chartExternalUrl) {
+  $("chartExternalLink").href = CONFIG.chartExternalUrl;
+}
+
+if (CONFIG.twitterUrl && CONFIG.twitterUrl !== "#") {
+  $("twitterLink").href = CONFIG.twitterUrl;
+}
+
+if (CONFIG.dexUrl && CONFIG.dexUrl !== "#") {
+  $("dexLink").href = CONFIG.dexUrl;
+}
+
 $("year").textContent = new Date().getFullYear();
 
 if (CONFIG.chartUrl) {
@@ -24,6 +50,7 @@ if (CONFIG.chartUrl) {
 }
 
 $("copyButton").addEventListener("click", async () => {
+  if (!CONFIG.contractAddress) return;
   try {
     await navigator.clipboard.writeText(CONFIG.contractAddress);
     $("toast").classList.add("show");
