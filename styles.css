@@ -564,6 +564,10 @@ h2 {
   background-size: 42px 42px;
 }
 
+.chart-placeholder[hidden] {
+  display: none !important;
+}
+
 .chart-placeholder strong {
   font-family: "Archivo Black", sans-serif;
   font-size: clamp(28px, 5vw, 58px);
