@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Robinhood Hat -->
+  <path d="M15 65 C15 65 20 25 50 20 C80 25 85 65 85 65 C85 65 70 72 50 72 C30 72 15 65 15 65Z" fill="#c94a2f"/>
+  <!-- Hat brim -->
+  <path d="M10 68 C10 68 25 78 50 78 C75 78 90 68 90 68 C90 68 75 75 50 75 C25 75 10 68 10 68Z" fill="#a03820"/>
+  <!-- Feather -->
+  <path d="M62 18 C62 18 70 8 75 5 C75 5 72 12 68 18 C68 18 74 10 78 6 C78 6 73 14 67 20 Z" fill="#c94a2f"/>
+  <path d="M65 15 L73 8" stroke="#a03820" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
