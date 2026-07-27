@@ -1,9 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
-  <!-- Robinhood Hat -->
-  <path d="M15 65 C15 65 20 25 50 20 C80 25 85 65 85 65 C85 65 70 72 50 72 C30 72 15 65 15 65Z" fill="#c94a2f"/>
-  <!-- Hat brim -->
-  <path d="M10 68 C10 68 25 78 50 78 C75 78 90 68 90 68 C90 68 75 75 50 75 C25 75 10 68 10 68Z" fill="#a03820"/>
-  <!-- Feather -->
-  <path d="M62 18 C62 18 70 8 75 5 C75 5 72 12 68 18 C68 18 74 10 78 6 C78 6 73 14 67 20 Z" fill="#c94a2f"/>
-  <path d="M65 15 L73 8" stroke="#a03820" stroke-width="1.5" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" fill="#c94a2f">
+  <!-- Top: feather tip -->
+  <path d="M35 5 C35 5 20 20 18 35 C16 50 28 55 40 52 C52 49 55 38 50 28 C45 18 35 5 35 5Z"/>
+  <!-- White channel cut -->
+  <path d="M38 50 L52 35" stroke="white" stroke-width="4" fill="none"/>
+  <!-- Middle: feather body -->
+  <path d="M22 58 C22 58 30 52 45 55 C60 58 68 68 65 80 C62 92 48 95 38 90 C28 85 22 72 22 58Z"/>
+  <!-- White channel cut -->
+  <path d="M40 90 L55 72" stroke="white" stroke-width="4" fill="none"/>
+  <!-- Bottom: quill point -->
+  <path d="M38 95 C38 95 50 88 60 78 C70 68 75 60 78 55 L82 58 C78 65 72 75 62 85 C52 95 42 105 42 115 L35 118 C35 118 38 105 38 95Z"/>
 </svg>
