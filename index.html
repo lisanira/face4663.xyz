@@ -1,159 +1,264 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FACE4663 — the first vanity contract ending in FACE4663 on Robinhood Chain." />
-  <meta property="og:title" content="FACE4663" />
-  <meta property="og:description" content="The first vanity contract ending in FACE4663 on Robinhood Chain." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="logo.png" />
-  <title>FACE4663</title>
-  <link rel="icon" href="logo.png" type="image/png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#86aa4e" />
+  <meta name="description" content="FACE4663 — the first vanity contract address ending in face4663 on Robinhood Chain." />
+  <title>FACE4663 — The Face of 4663</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
+  <div class="page-noise" aria-hidden="true"></div>
+  <div id="falling-layer" class="falling-layer" aria-hidden="true"></div>
 
-  <!-- Full Background Logo — clearly visible -->
-  <div class="bg-logo">
-    <img src="logo.png" alt="" class="bg-logo-img" />
-  </div>
-
-  <!-- Coin Rain Canvas -->
-  <canvas id="coinCanvas"></canvas>
-
-  <!-- Navigation -->
-  <header class="nav">
-    <a class="nav-brand" href="#top">
-      <img src="logo.png" alt="FACE4663" class="nav-logo" />
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="FACE4663 home">
+      <span class="brand-mark">
+        <img src="./assets/face4663-mascot.jpg" alt="" />
+      </span>
       <span>FACE4663</span>
     </a>
-    <nav class="nav-links">
-      <a href="#chart">Chart</a>
-      <a href="#about">About</a>
-      <a href="#links">Links</a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#story">Story</a>
+      <a href="#identity">Identity</a>
+      <a href="#contract">Contract</a>
+      <a href="#chart">Live Chart</a>
+      <a href="#community">Community</a>
     </nav>
+
+    <a class="nav-cta" href="#contract">Verify CA</a>
   </header>
 
-  <!-- Hero -->
   <main id="top">
-    <section class="hero">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        <span>Robinhood Chain • First Vanity Contract</span>
+    <section class="hero scene">
+      <div class="scene-image scene-image-hero" aria-hidden="true"></div>
+      <div class="scene-overlay" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="eyebrow">ROBINHOOD CHAIN · CHAIN ID 4663</p>
+        <h1>
+          <span>THE FACE</span>
+          <span>OF 4663</span>
+        </h1>
+        <p class="hero-copy">
+          The first vanity contract address ending in
+          <code>face4663</code> on Robinhood Chain — built as a recognizable,
+          community-owned on-chain identity.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#contract">View Contract</a>
+          <a class="button button-ghost" href="#chart">Live Chart</a>
+        </div>
       </div>
 
-      <h1 class="hero-title">
-        THE FIRST<br />
-        <span class="accent">FACE4663</span>
-      </h1>
+      <div class="hero-ca" aria-label="Contract address preview">
+        <span class="hero-ca-label">THE ADDRESS</span>
+        <div class="hero-ca-row">
+          <code data-contract-display>0x0000...face4663</code>
+          <button class="copy-button" type="button" data-copy-contract>Copy</button>
+        </div>
+      </div>
 
-      <p class="hero-subtitle">
-        The first vanity contract address ending in FACE4663.<br />
-        Memorable. Verifiable. Community-owned.
-      </p>
+      <a class="scroll-cue" href="#story" aria-label="Scroll to story">
+        <span></span>
+      </a>
+    </section>
 
-      <div class="contract-card">
+    <section id="story" class="section scene story-section">
+      <div class="scene-image scene-image-story" aria-hidden="true"></div>
+      <div class="section-shade" aria-hidden="true"></div>
+
+      <div class="section-shell story-layout">
         <div>
-          <div class="label">Contract address</div>
-          <code id="contractAddress">Coming Soon</code>
+          <p class="eyebrow">THE STORY</p>
+          <h2>A FACE PEOPLE REMEMBER.<br />AN ADDRESS THEY CAN VERIFY.</h2>
         </div>
-        <button id="copyButton" class="copy-btn" type="button" disabled>Copy</button>
-      </div>
 
-      <div class="actions">
-        <a id="buyLink" class="btn btn-primary" href="#" onclick="return false;">Coming Soon</a>
-        <a id="explorerLink" class="btn btn-secondary" href="#" onclick="return false;">Explorer</a>
-      </div>
-
-      <div class="stats-row">
-        <div class="stat">
-          <div class="stat-value">FACE4663</div>
-          <div class="stat-label">Vanity ending</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">100%</div>
-          <div class="stat-label">Community</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">LIVE</div>
-          <div class="stat-label">On-chain</div>
+        <div class="story-copy">
+          <p>
+            FACE4663 began with a rare on-chain identity: the first vanity
+            contract address ending in <code>face4663</code> on Robinhood Chain.
+          </p>
+          <p>
+            <strong>4663</strong> is the chain ID. <strong>FACE</strong> is the
+            face, identity, and recognition behind the address.
+          </p>
+          <p>
+            The smug green face, Robin Hood hat, red feather, forehead number,
+            and floating bills turn a contract suffix into something the
+            community can recognize, remember, and own.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Chart -->
-    <section id="chart" class="section">
-      <div class="section-header">
-        <span class="section-badge">Live Market</span>
-        <h2 class="section-title">Token chart</h2>
-      </div>
-      <div class="chart-shell">
-        <div id="chartPlaceholder" class="chart-placeholder">
-          <span>Chart after launch</span>
+    <section id="identity" class="section scene identity-section">
+      <div class="scene-image scene-image-identity" aria-hidden="true"></div>
+      <div class="section-shade section-shade-strong" aria-hidden="true"></div>
+
+      <div class="section-shell">
+        <p class="eyebrow">ONE IDENTITY · THREE PARTS</p>
+        <div class="identity-grid">
+          <article class="identity-item">
+            <span class="identity-index">01</span>
+            <h3>FACE</h3>
+            <p>The mascot, character, and recognition people remember.</p>
+          </article>
+
+          <article class="identity-item">
+            <span class="identity-index">02</span>
+            <h3>4663</h3>
+            <p>The Robinhood Chain ID permanently embedded in the brand.</p>
+          </article>
+
+          <article class="identity-item">
+            <span class="identity-index">03</span>
+            <h3>face4663</h3>
+            <p>The unique lowercase vanity ending that proves the identity on-chain.</p>
+          </article>
         </div>
-        <iframe
-          id="chartFrame"
-          title="FACE4663 live chart"
-          loading="lazy"
-          referrerpolicy="no-referrer"
-          allow="clipboard-write"
-        ></iframe>
       </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="section split-section">
-      <div>
-        <span class="section-badge">Why FACE4663</span>
-        <h2 class="section-title">Built around<br />a rare identity.</h2>
+    <section id="contract" class="section scene contract-section">
+      <div class="scene-image scene-image-contract" aria-hidden="true"></div>
+      <div class="section-shade section-shade-contract" aria-hidden="true"></div>
+
+      <div class="section-shell contract-layout">
+        <div class="contract-heading">
+          <p class="eyebrow">THE ADDRESS IS THE IDENTITY</p>
+          <h2>VERIFY IT.<br />DON'T TRUST A LOOKALIKE.</h2>
+          <p>
+            Always check that the official contract ends in
+            <code>face4663</code>.
+          </p>
+        </div>
+
+        <div class="contract-artifact">
+          <div class="artifact-topline">
+            <span>ROBINHOOD CHAIN</span>
+            <span>CHAIN ID 4663</span>
+          </div>
+
+          <div class="full-contract">
+            <code data-contract-full>0x00000000000000000000000000000000face4663</code>
+          </div>
+
+          <div class="artifact-ending">
+            <span>VANITY ENDING</span>
+            <strong>face4663</strong>
+          </div>
+
+          <div class="artifact-actions">
+            <button class="button button-primary" type="button" data-copy-contract>
+              Copy Contract
+            </button>
+            <a class="button button-ghost" href="#" data-explorer-link target="_blank" rel="noopener">
+              Verify On-Chain
+            </a>
+          </div>
+
+          <p class="copy-status" data-copy-status aria-live="polite"></p>
+        </div>
       </div>
-      <div>
-        <p>
-          FACE4663 is the first vanity contract address ending in FACE4663
-          on Robinhood Chain. Made to be instantly recognizable and easy to remember.
+    </section>
+
+    <section id="chart" class="section scene chart-section">
+      <div class="scene-image scene-image-chart" aria-hidden="true"></div>
+      <div class="section-shade section-shade-strong" aria-hidden="true"></div>
+
+      <div class="section-shell">
+        <div class="chart-heading">
+          <div>
+            <p class="eyebrow">FACE4663 LIVE ON-CHAIN</p>
+            <h2>WATCH THE MARKET<br />WITHOUT LEAVING THE FACE.</h2>
+          </div>
+          <p>
+            Price, volume, liquidity, and market activity will appear here
+            through the official DEX chart.
+          </p>
+        </div>
+
+        <div class="chart-frame">
+          <iframe
+            data-chart-frame
+            title="FACE4663 live DEX chart"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            allowfullscreen
+          ></iframe>
+
+          <div class="chart-placeholder" data-chart-placeholder>
+            <span class="placeholder-kicker">LIVE CHART READY</span>
+            <strong>Add the official DEX pair URL</strong>
+            <p>
+              Edit <code>CONFIG.chartEmbedUrl</code> in <code>script.js</code>
+              after the trading pair is live.
+            </p>
+          </div>
+        </div>
+
+        <div class="chart-actions">
+          <a class="button button-primary" href="#" data-trade-link target="_blank" rel="noopener">
+            Trade FACE4663
+          </a>
+          <a class="button button-ghost" href="#" data-full-chart-link target="_blank" rel="noopener">
+            Open Full Chart
+          </a>
+          <button class="button button-ghost" type="button" data-copy-contract>
+            Copy Contract
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="community" class="section scene community-section">
+      <div class="scene-image scene-image-community" aria-hidden="true"></div>
+      <div class="section-shade section-shade-community" aria-hidden="true"></div>
+
+      <div class="section-shell community-layout">
+        <p class="eyebrow">OWNED BY THE COMMUNITY</p>
+        <h2>
+          BUILT BY THE COMMUNITY.<br />
+          RECOGNIZED BY THE FACE.<br />
+          VERIFIED BY THE ADDRESS.
+        </h2>
+        <p class="community-copy">
+          FACE4663 is not a developer-centered narrative. The community owns
+          the culture, spreads the face, and protects the identity by sharing
+          the correct contract.
         </p>
-        <p>
-          No complicated dashboard. Just the contract, live chart, official
-          links, and the information holders actually need.
-        </p>
-      </div>
-    </section>
 
-    <!-- Links -->
-    <section id="links" class="section">
-      <div class="section-header">
-        <span class="section-badge">Official Channels</span>
-        <h2 class="section-title">Verify everything.</h2>
-      </div>
-      <div class="link-grid">
-        <a id="twitterLink" class="link-card" href="#" target="_blank" rel="noreferrer">
-          <span class="link-label">X / Twitter</span>
-          <strong class="link-title">Official updates ↗</strong>
-        </a>
-        <a id="dexLink" class="link-card" href="#" target="_blank" rel="noreferrer">
-          <span class="link-label">DEX</span>
-          <strong class="link-title">Trade FACE4663 ↗</strong>
-        </a>
+        <div class="community-actions">
+          <a class="button button-primary" href="#" data-x-link target="_blank" rel="noopener">Follow on X</a>
+          <a class="button button-ghost" href="#chart">Watch Live Chart</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="brand">
-      <img src="logo.png" alt="FACE4663" style="width:20px;height:20px;border-radius:50%;" />
-      <span>FACE4663</span>
+  <footer class="site-footer scene">
+    <div class="scene-image scene-image-footer" aria-hidden="true"></div>
+    <div class="footer-shade" aria-hidden="true"></div>
+
+    <div class="footer-content">
+      <div>
+        <strong>FACE4663</strong>
+        <p>The face. The address. The identity of 4663.</p>
+      </div>
+      <div class="footer-meta">
+        <span>Robinhood Chain · 4663</span>
+        <span>Contract ending · face4663</span>
+      </div>
     </div>
-    <span>© <span id="year"></span> FACE4663</span>
   </footer>
 
-  <!-- Toast -->
-  <div id="toast" class="toast" role="status" aria-live="polite">Contract copied</div>
-
-  <script src="script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
