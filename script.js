@@ -3,12 +3,12 @@
   Replace the placeholder values below after the official deployment and DEX pair are live.
 */
 const CONFIG = {
-  contractAddress: "0x00000000000000000000000000000000face4663",
-  explorerUrl: "#",
-  chartEmbedUrl: "",
-  fullChartUrl: "#",
-  tradeUrl: "#",
-  xUrl: "#"
+  contractAddress: "0x8beF3368Af47c29746D13a6F1F3844dD685B90d2",
+  explorerUrl: "https://robinhoodchain.blockscout.com/address/0x8beF3368Af47c29746D13a6F1F3844dD685B90d2",
+  chartEmbedUrl: "https://dexscreener.com/robinhood/0xd2e5312565d0868b3d35d92c727f5fbd09686f15?embed=1&theme=dark&info=0",
+  fullChartUrl: "https://dexscreener.com/robinhood/0xd2e5312565d0868b3d35d92c727f5fbd09686f15",
+  tradeUrl: "https://dexscreener.com/robinhood/0xd2e5312565d0868b3d35d92c727f5fbd09686f15",
+  xUrl: "https://x.com/SafeCircleAI"
 };
 
 const truncateContract = (address) => {
