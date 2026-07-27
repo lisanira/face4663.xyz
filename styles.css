@@ -696,8 +696,7 @@ h2 {
 .falling-item.robinhood-logo {
   width: var(--size);
   height: var(--size);
-  background: #c94a2f;
-  clip-path: polygon(50% 0%, 85% 35%, 65% 35%, 65% 100%, 35% 100%, 35% 35%, 15% 35%);
+  background: url('./assets/robinhood-arrow.svg') center/contain no-repeat;
   opacity: var(--opacity);
 }
 
