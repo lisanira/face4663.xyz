@@ -1,12 +1,12 @@
 // Temporary functional test using Robinhood Chain token — replace CA at launch.
 const CONFIG = {
-  contractAddress: "0x39a200271525e9641e799127bdab299daef21953",
-  buyUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953",
-  explorerUrl: "https://robinhoodchain.blockscout.com/address/0x39a200271525e9641e799127bdab299daef21953",
-  chartUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953?embed=1&theme=dark&info=0",
-  chartExternalUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953",
-  twitterUrl: "https://x.com/elonmusk",
-  dexUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953"
+  contractAddress: "0x0e49718b25e1cdf49bc62068198465b1681827e5",
+  buyUrl: "https://dexscreener.com/robinhood/0x0e49718b25e1cdf49bc62068198465b1681827e5",
+  explorerUrl: "https://robinhoodchain.blockscout.com/address/0x0e49718b25e1cdf49bc62068198465b1681827e5",
+  chartUrl: "https://dexscreener.com/robinhood/0x0e49718b25e1cdf49bc62068198465b1681827e5?embed=1&theme=dark&info=0",
+  chartExternalUrl: "https://dexscreener.com/robinhood/0x0e49718b25e1cdf49bc62068198465b1681827e5",
+  twitterUrl: "https://x.com/ninehood_h",
+  dexUrl: "https://dexscreener.com/robinhood/0x0e49718b25e1cdf49bc62068198465b1681827e5"
 };
 
 const $ = (id) => document.getElementById(id);
