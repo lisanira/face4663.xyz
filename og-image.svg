@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-<rect width="1200" height="630" fill="#070807"/>
-<circle cx="1020" cy="120" r="260" fill="#c8ff3d" opacity=".08"/>
-<circle cx="170" cy="520" r="260" fill="#c8ff3d" opacity=".05"/>
-<text x="90" y="220" fill="#9da39a" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="8">ROBINHOOD CHAIN • VANITY CONTRACT</text>
-<text x="80" y="390" fill="#f5f6f2" font-family="Arial, sans-serif" font-size="142" font-weight="900" letter-spacing="-8">FACE<tspan fill="#c8ff3d">4663</tspan></text>
-<text x="90" y="475" fill="#9da39a" font-family="Arial, sans-serif" font-size="34">The first vanity contract ending in FACE4663.</text>
-</svg>

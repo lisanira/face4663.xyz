@@ -3,24 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FACE4663 — the first vanity contract ending in FACE4663." />
+  <meta name="description" content="FACE4663 — the first vanity contract ending in FACE4663 on Robinhood Chain." />
   <meta property="og:title" content="FACE4663" />
-  <meta property="og:description" content="The first vanity contract ending in FACE4663." />
+  <meta property="og:description" content="The first vanity contract ending in FACE4663 on Robinhood Chain." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="og-image.svg" />
+  <meta property="og:image" content="logo.png" />
   <title>FACE4663</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="noise"></div>
 
+  <!-- Full Background Logo -->
+  <div class="bg-logo"></div>
+
+  <!-- Coin Rain Canvas -->
+  <canvas id="coinCanvas"></canvas>
+
+  <!-- Navigation -->
   <header class="nav">
-    <a class="brand" href="#top" aria-label="FACE4663 home">
-      <span class="brand-mark">F</span>
+    <a class="nav-brand" href="#top">
+      <img src="logo.png" alt="FACE4663" class="nav-logo" />
       <span>FACE4663</span>
     </a>
-
     <nav class="nav-links">
       <a href="#chart">Chart</a>
       <a href="#about">About</a>
@@ -28,65 +36,62 @@
     </nav>
   </header>
 
+  <!-- Hero -->
   <main id="top">
     <section class="hero">
-      <div class="eyebrow">ROBINHOOD CHAIN • VANITY CONTRACT</div>
+      <div class="hero-badge">
+        <span class="dot"></span>
+        <span>Robinhood Chain • First Vanity Contract</span>
+      </div>
 
-      <h1>
+      <h1 class="hero-title">
         THE FIRST<br />
-        <span>FACE4663</span>
+        <span class="accent">FACE4663</span>
       </h1>
 
-      <p class="hero-copy">
-        A clean Web3 landing page for a vanity contract address ending in
-        <strong>FACE4663</strong>.
+      <p class="hero-subtitle">
+        The first vanity contract address ending in FACE4663.<br />
+        Memorable. Verifiable. Community-owned.
       </p>
 
       <div class="contract-card">
         <div>
-          <span class="label">Contract address</span>
+          <div class="label">Contract address</div>
           <code id="contractAddress">Coming Soon</code>
         </div>
-        <button id="copyButton" class="copy-button" type="button" disabled>Copy CA</button>
+        <button id="copyButton" class="copy-btn" type="button" disabled>Copy</button>
       </div>
 
       <div class="actions">
-        <a id="buyLink" class="button primary" href="#" target="_blank" rel="noreferrer" onclick="return false;">Coming Soon</a>
-        <a id="explorerLink" class="button secondary" href="#" target="_blank" rel="noreferrer" onclick="return false;">Coming Soon</a>
+        <a id="buyLink" class="btn btn-primary" href="#" onclick="return false;">Coming Soon</a>
+        <a id="explorerLink" class="btn btn-secondary" href="#" onclick="return false;">Explorer</a>
       </div>
 
-      <div class="proof-row">
-        <div>
-          <span class="proof-value">FACE4663</span>
-          <span class="proof-label">Vanity ending</span>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-value">FACE4663</div>
+          <div class="stat-label">Vanity ending</div>
         </div>
-        <div>
-          <span class="proof-value">100%</span>
-          <span class="proof-label">Community driven</span>
+        <div class="stat">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Community</div>
         </div>
-        <div>
-          <span class="proof-value">LIVE</span>
-          <span class="proof-label">On-chain</span>
+        <div class="stat">
+          <div class="stat-value">LIVE</div>
+          <div class="stat-label">On-chain</div>
         </div>
       </div>
     </section>
 
+    <!-- Chart -->
     <section id="chart" class="section">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">LIVE MARKET</span>
-          <h2>Token chart</h2>
-        </div>
-        <a id="chartExternalLink" class="text-link" href="#" target="_blank" rel="noreferrer">Open full chart ↗</a>
+      <div class="section-header">
+        <span class="section-badge">Live Market</span>
+        <h2 class="section-title">Token chart</h2>
       </div>
-
       <div class="chart-shell">
         <div id="chartPlaceholder" class="chart-placeholder">
-          <div class="chart-grid"></div>
-          <div class="chart-line"></div>
-          <div class="chart-message">
-            <span>Coming Soon</span>
-          </div>
+          <span>Chart after launch</span>
         </div>
         <iframe
           id="chartFrame"
@@ -98,16 +103,16 @@
       </div>
     </section>
 
+    <!-- About -->
     <section id="about" class="section split-section">
       <div>
-        <span class="eyebrow">WHY FACE4663</span>
-        <h2>Built around a rare identity.</h2>
+        <span class="section-badge">Why FACE4663</span>
+        <h2 class="section-title">Built around<br />a rare identity.</h2>
       </div>
-
-      <div class="about-copy">
+      <div>
         <p>
-          FACE4663 is centered on a vanity contract address made to be instantly
-          recognizable and easy to remember.
+          FACE4663 is the first vanity contract address ending in FACE4663
+          on Robinhood Chain. Made to be instantly recognizable and easy to remember.
         </p>
         <p>
           No complicated dashboard. Just the contract, live chart, official
@@ -116,38 +121,37 @@
       </div>
     </section>
 
+    <!-- Links -->
     <section id="links" class="section">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">OFFICIAL CHANNELS</span>
-          <h2>Verify everything.</h2>
-        </div>
+      <div class="section-header">
+        <span class="section-badge">Official Channels</span>
+        <h2 class="section-title">Verify everything.</h2>
       </div>
-
       <div class="link-grid">
         <a id="twitterLink" class="link-card" href="#" target="_blank" rel="noreferrer">
-          <span>X / Twitter</span>
-          <strong>Official updates ↗</strong>
+          <span class="link-label">X / Twitter</span>
+          <strong class="link-title">Official updates ↗</strong>
         </a>
         <a id="dexLink" class="link-card" href="#" target="_blank" rel="noreferrer">
-          <span>DEX</span>
-          <strong>Trade FACE4663 ↗</strong>
+          <span class="link-label">DEX</span>
+          <strong class="link-title">Trade FACE4663 ↗</strong>
         </a>
       </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
     <div class="brand">
-      <span class="brand-mark">F</span>
+      <img src="logo.png" alt="FACE4663" style="width:20px;height:20px;border-radius:4px;" />
       <span>FACE4663</span>
     </div>
-    <p>Crypto assets are volatile. Always verify the contract address.</p>
     <span>© <span id="year"></span> FACE4663</span>
   </footer>
 
+  <!-- Toast -->
   <div id="toast" class="toast" role="status" aria-live="polite">Contract copied</div>
 
-  <script src="script.js?v=e91b89a"></script>
+  <script src="script.js"></script>
 </body>
 </html>
