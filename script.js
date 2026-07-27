@@ -2,7 +2,7 @@
 const CONFIG = {
   contractAddress: "0x39a200271525e9641e799127bdab299daef21953",
   buyUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953",
-  explorerUrl: "https://blockscout.com/robinhoodchain/address/0x39a200271525e9641e799127bdab299daef21953",
+  explorerUrl: "https://robinhoodchain.blockscout.com/address/0x39a200271525e9641e799127bdab299daef21953",
   chartUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953?embed=1&theme=dark&info=0",
   chartExternalUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953",
   twitterUrl: "https://x.com/elonmusk",
