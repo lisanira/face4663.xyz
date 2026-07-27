@@ -1,12 +1,12 @@
-// Temporary functional test using Ethereum WETH — replace every value at launch.
+// Temporary functional test using Robinhood Chain token — replace CA at launch.
 const CONFIG = {
-  contractAddress: "0xC02aaA39b223FE8D0A0E5C4F27eAD9083C756Cc2",
-  buyUrl: "https://dexscreener.com/ethereum/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-  explorerUrl: "https://etherscan.io/token/0xC02aaA39b223FE8D0A0E5C4F27eAD9083C756Cc2",
+  contractAddress: "0x39a200271525e9641e799127bdab299daef21953",
+  buyUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953",
+  explorerUrl: "https://blockscout.com/robinhoodchain/address/0x39a200271525e9641e799127bdab299daef21953",
   chartUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953?embed=1&theme=dark&info=0",
   chartExternalUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953",
   twitterUrl: "https://x.com/elonmusk",
-  dexUrl: "https://dexscreener.com/ethereum/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  dexUrl: "https://dexscreener.com/robinhood/0x39a200271525e9641e799127bdab299daef21953"
 };
 
 const $ = (id) => document.getElementById(id);
