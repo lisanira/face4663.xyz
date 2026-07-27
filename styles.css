@@ -693,24 +693,12 @@ h2 {
   transform: scale(1.58);
 }
 
-.falling-item.feather {
-  width: calc(var(--size) * 0.48);
+.falling-item.robinhood-logo {
+  width: var(--size);
   height: var(--size);
-  border-radius: 100% 0 100% 0;
-  background: linear-gradient(135deg, #e25b37 0 44%, #9f2f1f 45% 100%);
-  transform-origin: center;
-}
-
-.falling-item.feather::after {
-  content: "";
-  position: absolute;
-  left: 48%;
-  top: 8%;
-  width: 2px;
-  height: 96%;
-  background: rgba(240, 227, 189, 0.72);
-  transform: rotate(28deg);
-  transform-origin: top;
+  background: #c94a2f;
+  clip-path: polygon(50% 0%, 85% 35%, 65% 35%, 65% 100%, 35% 100%, 35% 35%, 15% 35%);
+  opacity: var(--opacity);
 }
 
 @keyframes fall {

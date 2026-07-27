@@ -91,7 +91,7 @@ const createFallingItems = () => {
   for (let i = 0; i < itemCount; i += 1) {
     const item = document.createElement("span");
     const isCoin = Math.random() > 0.48;
-    item.className = `falling-item ${isCoin ? "coin" : "feather"}`;
+    item.className = `falling-item ${isCoin ? "coin" : "robinhood-logo"}`;
 
     const size = isCoin
       ? Math.round(26 + Math.random() * (isMobile ? 22 : 38))
