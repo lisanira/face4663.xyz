@@ -1,6 +1,6 @@
-// FACE4663 — Coin Rain + Config
+// FACE4663 — Round Coin Rain + Config
 
-// --- Coin Rain (uses logo as falling coin) ---
+// --- Round Coin Rain (logo as round falling coins) ---
 function initCoinRain() {
   const canvas = document.getElementById('coinCanvas');
   if (!canvas) return;
@@ -9,8 +9,27 @@ function initCoinRain() {
   const coinImg = new Image();
   coinImg.src = 'logo.png';
 
+  // Pre-render round coin to offscreen canvas
+  let roundCoinReady = false;
+  const roundCoinSize = 80;
+  const offscreen = document.createElement('canvas');
+  offscreen.width = roundCoinSize;
+  offscreen.height = roundCoinSize;
+  const offCtx = offscreen.getContext('2d');
+
+  coinImg.onload = () => {
+    // Clip logo into circle
+    offCtx.beginPath();
+    offCtx.arc(roundCoinSize / 2, roundCoinSize / 2, roundCoinSize / 2, 0, Math.PI * 2);
+    offCtx.closePath();
+    offCtx.clip();
+    offCtx.drawImage(coinImg, 0, 0, roundCoinSize, roundCoinSize);
+    roundCoinReady = true;
+    draw();
+  };
+
   const coins = [];
-  const maxCoins = 25;
+  const maxCoins = 20;
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -21,17 +40,18 @@ function initCoinRain() {
     if (coins.length >= maxCoins) return;
     coins.push({
       x: Math.random() * canvas.width,
-      y: -60,
-      size: 20 + Math.random() * 30,
-      speedY: 0.5 + Math.random() * 1.5,
-      speedX: (Math.random() - 0.5) * 0.8,
+      y: -80,
+      size: 30 + Math.random() * 40,
+      speedY: 0.4 + Math.random() * 1.2,
+      speedX: (Math.random() - 0.5) * 0.6,
       rotation: Math.random() * Math.PI * 2,
-      rotationSpeed: (Math.random() - 0.5) * 0.03,
-      opacity: 0.15 + Math.random() * 0.35,
+      rotationSpeed: (Math.random() - 0.5) * 0.02,
+      opacity: 0.4 + Math.random() * 0.5,
     });
   }
 
   function draw() {
+    if (!roundCoinReady) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = coins.length - 1; i >= 0; i--) {
@@ -40,7 +60,7 @@ function initCoinRain() {
       c.x += c.speedX;
       c.rotation += c.rotationSpeed;
 
-      if (c.y > canvas.height + 60) {
+      if (c.y > canvas.height + 80) {
         coins.splice(i, 1);
         continue;
       }
@@ -49,18 +69,17 @@ function initCoinRain() {
       ctx.translate(c.x, c.y);
       ctx.rotate(c.rotation);
       ctx.globalAlpha = c.opacity;
-      ctx.drawImage(coinImg, -c.size / 2, -c.size / 2, c.size, c.size);
+      ctx.drawImage(offscreen, -c.size / 2, -c.size / 2, c.size, c.size);
       ctx.restore();
     }
 
-    if (Math.random() > 0.92) spawnCoin();
+    if (Math.random() > 0.93) spawnCoin();
 
     requestAnimationFrame(draw);
   }
 
   resize();
   window.addEventListener('resize', resize);
-  coinImg.onload = () => draw();
 }
 
 // --- Config ---
@@ -88,7 +107,7 @@ if (CONFIG.buyUrl && CONFIG.buyUrl !== "#") {
 }
 
 if (CONFIG.explorerUrl && CONFIG.explorerUrl !== "#") {
-  $("explorerLink").href = CONFIG.explorerLink;
+  $("explorerLink").href = CONFIG.explorerUrl;
   $("explorerLink").onclick = null;
 }
 
