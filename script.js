@@ -1,10 +1,12 @@
+// Temporary functional test using Ethereum WETH — replace every value at launch.
 const CONFIG = {
-  contractAddress: "",
-  buyUrl: "#",
-  explorerUrl: "#",
-  chartUrl: "",
+  contractAddress: "0xC02aaA39b223FE8D0A0E5C4F27eAD9083C756Cc2",
+  buyUrl: "https://dexscreener.com/ethereum/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+  explorerUrl: "https://etherscan.io/token/0xC02aaA39b223FE8D0A0E5C4F27eAD9083C756Cc2",
+  chartUrl: "https://dexscreener.com/ethereum/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2?embed=1&theme=dark&info=0",
+  chartExternalUrl: "https://dexscreener.com/ethereum/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   twitterUrl: "#",
-  dexUrl: "#"
+  dexUrl: "https://dexscreener.com/ethereum/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
 };
 
 const $ = (id) => document.getElementById(id);
