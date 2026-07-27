@@ -1,12 +1,11 @@
-// Temporary functional test using Robinhood Chain token — replace CA at launch.
 const CONFIG = {
-  contractAddress: "0x6A98C4145cC8ea5A779118a31308929e5dda8A1A",
-  buyUrl: "https://dexscreener.com/robinhood/0x676a9f66b44d47114feebe43761da7bfb5e26064",
-  explorerUrl: "https://robinhoodchain.blockscout.com/address/0x6A98C4145cC8ea5A779118a31308929e5dda8A1A",
-  chartUrl: "https://dexscreener.com/robinhood/0x676a9f66b44d47114feebe43761da7bfb5e26064?embed=1&theme=dark&info=0",
-  chartExternalUrl: "https://dexscreener.com/robinhood/0x676a9f66b44d47114feebe43761da7bfb5e26064",
-  twitterUrl: "https://x.com/agentrobinrh",
-  dexUrl: "https://dexscreener.com/robinhood/0x676a9f66b44d47114feebe43761da7bfb5e26064"
+  contractAddress: "",
+  buyUrl: "#",
+  explorerUrl: "#",
+  chartUrl: "",
+  chartExternalUrl: "",
+  twitterUrl: "#",
+  dexUrl: "#"
 };
 
 const $ = (id) => document.getElementById(id);
