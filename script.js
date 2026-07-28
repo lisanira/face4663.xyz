@@ -1,5 +1,5 @@
-const CONFIG={contractAddress:"0x7fA39C21000000000000000000000000face4663",explorerUrl:"#",chartEmbedUrl:"",fullChartUrl:"#",tradeUrl:"#",xUrl:"#",ponsUrl:"#"};
-const truncate=a=>a&&a.length>20?`${a.slice(0,8)}...${a.slice(-12)}`:a;
+const CONFIG={contractAddress:"0x00000000000000000000000000000000face4663",explorerUrl:"#",chartEmbedUrl:"",fullChartUrl:"#",tradeUrl:"#",xUrl:"#",ponsUrl:"#"};
+const truncate=a=>a&&a.length>20?`${a.slice(0,7)}...${a.slice(-8)}`:a;
 document.querySelectorAll('[data-contract-full]').forEach(n=>n.textContent=CONFIG.contractAddress);
 document.querySelectorAll('[data-contract-display]').forEach(n=>n.textContent=truncate(CONFIG.contractAddress));
 [['data-explorer-link','explorerUrl'],['data-full-chart-link','fullChartUrl'],['data-trade-link','tradeUrl'],['data-x-link','xUrl']].forEach(([sel,key])=>document.querySelectorAll(`[${sel}]`).forEach(a=>a.href=CONFIG[key]));
