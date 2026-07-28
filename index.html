@@ -3,437 +3,121 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#86aa4e" />
-  <meta name="description" content="FACE4663 — the first vanity contract address ending in face4663 on Robinhood Chain." />
+  <meta name="theme-color" content="#050805" />
+  <meta name="description" content="FACE4663 — a recognizable contract identity on Robinhood Chain." />
   <title>FACE4663 — The Face of 4663</title>
-  <link rel="icon" type="image/png" href="/favicon.png?v=3">
-  <link rel="shortcut icon" href="/favicon.png?v=3">
-  <link rel="manifest" href="/site.webmanifest" />
-  <meta name="theme-color" content="#1f2025" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png?v=4">
+  <link rel="shortcut icon" href="/favicon.png?v=4">
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="page-noise" aria-hidden="true"></div>
-  <div id="falling-layer" class="falling-layer" aria-hidden="true"></div>
-
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="FACE4663 home">
-      <span class="brand-mark">
-        <img src="./assets/face4663-mascot.jpg" alt="" />
-      </span>
-      <span>FACE4663</span>
-    </a>
-
-    <nav class="desktop-nav" aria-label="Primary navigation">
-    <a href="#story">Story</a>
-    <a href="#vision">Vision</a>
-    <a href="#identity">Identity</a>
-    <a href="#contract">Contract</a>
-    <a href="#chart">Live Chart</a>
-    <a href="#community">Community</a>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header" data-header>
+    <a class="wordmark" href="#top" aria-label="FACE4663 home"><span>FACE</span><b>4663</b></a>
+    <button class="menu-toggle" type="button" aria-label="Toggle menu" data-menu-toggle><span></span><span></span></button>
+    <nav class="nav" data-nav>
+      <a href="#story">Story</a><a href="#vision">Vision</a><a href="#identity">Identity</a><a href="#contract">Contract</a><a href="#community">Community</a>
     </nav>
-
-    <a class="nav-cta" href="#contract">Verify CA</a>
+    <a class="hud-button header-verify" href="#contract">Verify CA</a>
   </header>
 
   <main id="top">
-    <section class="hero scene">
-      <div class="scene-image scene-image-hero" aria-hidden="true"></div>
-      <div class="scene-overlay" aria-hidden="true"></div>
+    <section class="hero">
+      <div class="hex-field" aria-hidden="true"></div>
+      <div class="code-rain" aria-hidden="true">7A F2 21 · 66 46 63 8B · FA CE 46 63 · 0D 66 46 63</div>
+      <div class="hero-visual" aria-hidden="true">
+        <img src="./assets/hero-identity.webp" alt="" />
+        <div class="visual-tag visual-tag-a">0x7FA39C</div>
+        <div class="visual-tag visual-tag-b">FACE4663</div>
+        <div class="verify-readout"><span>&gt; IDENTITY MATCH</span><span>&gt; CONFIDENCE: 100%</span><span>&gt; STATUS: VERIFIED</span></div>
+      </div>
 
-      <div class="hero-content">
+      <div class="hero-copy-wrap">
         <p class="eyebrow">ROBINHOOD CHAIN · CHAIN ID 4663</p>
-        <h1>
-          <span>THE FACE</span>
-          <span>OF 4663</span>
-        </h1>
-        <p class="hero-copy">
-          The first recognizable contract identity built around a vanity
-          address ending in <code>face4663</code> on Robinhood Chain.
-        </p>
+        <h1><span data-text="THE FACE">THE FACE</span><span data-text="OF 4663">OF <em>4663</em></span></h1>
+        <p class="hero-tagline">A contract address deserves a face.</p>
 
-        <div class="hero-actions">
-          <a class="button button-primary" href="#contract">View Contract</a>
-          <a class="button button-ghost" href="#" data-pons-link target="_blank" rel="noopener">View on Pons</a>
-          <a class="button button-ghost" href="#chart">Live Chart</a>
-        </div>
-      </div>
-
-      <div class="hero-ca" aria-label="Contract address preview">
-        <span class="hero-ca-label">THE ADDRESS</span>
-        <div class="hero-ca-row">
+        <div class="contract-strip identity-frame">
           <code data-contract-display>0x0000...face4663</code>
-          <button class="copy-button" type="button" data-copy-contract>Copy</button>
+          <button type="button" data-copy-contract><span>▣</span> Copy</button>
+          <button type="button" data-verify-trigger><span>⬡</span> Verify</button>
         </div>
-      </div>
 
-      <a class="scroll-cue" href="#story" aria-label="Scroll to story">
-        <span></span>
-      </a>
+        <div class="genesis-panel identity-frame">
+          <p>[ 0x01 / GENESIS IDENTITY ]</p>
+          <dl><div><dt>CHAIN:</dt><dd>4663</dd></div><div><dt>STATE:</dt><dd class="state">RECOGNIZED</dd></div><div><dt>TYPE:</dt><dd>CONTRACT IDENTITY</dd></div></dl>
+        </div>
+
+        <div class="state-flow identity-frame"><span>RANDOM</span><i>→</i><strong>RECOGNIZED</strong><i>→</i><span>VERIFIED</span></div>
+      </div>
     </section>
 
-    <section id="story" class="section scene story-section">
-      <div class="scene-image scene-image-story" aria-hidden="true"></div>
-      <div class="section-shade" aria-hidden="true"></div>
-
-      <div class="section-shell story-layout">
-        <div>
-          <p class="eyebrow">THE STORY</p>
-          <h2>A FACE PEOPLE REMEMBER.<br />AN ADDRESS THEY CAN VERIFY.</h2>
-        </div>
-
-        <div class="story-copy">
-          <p>
-            FACE4663 began with a simple question: What if a contract
-            address could become more than a technical string?
-          </p>
-          <p>
-            It started with a rare on-chain identity: a vanity contract
-            address designed to become recognizable, memorable, and
-            verifiable on Robinhood Chain.
-          </p>
-          <p>
-            <strong>4663</strong> is the chain ID. <strong>FACE</strong> is the
-            face, identity, and recognition behind the address.
-          </p>
-          <p>
-            The smug green face, Robin Hood hat, red feather, forehead number,
-            and floating bills turn a contract suffix into something the
-            community can recognize, remember, and identify with.
-          </p>
+    <section id="story" class="section section-story">
+      <div class="section-index">[ 0x02 / ORIGIN RECORD ]</div>
+      <div class="section-head"><p class="eyebrow">THE STORY</p><h2>A FACE PEOPLE REMEMBER.<br>AN ADDRESS THEY CAN VERIFY.</h2></div>
+      <div class="story-grid">
+        <div class="mascot-card"><img src="./assets/face4663-profile.webp" alt="FACE4663 mascot" /><div class="scan-line"></div><span>FACE DETECTED · 4663</span></div>
+        <div class="prose">
+          <p>FACE4663 began with a simple question: What if a contract address could become more than a technical string?</p>
+          <p>It started with a rare on-chain identity: a vanity contract address designed to become recognizable, memorable, and verifiable on Robinhood Chain.</p>
+          <p><strong>4663</strong> is the chain ID. <strong>FACE</strong> is the face, identity, and recognition behind the address.</p>
+          <p>The smug green face, Robin Hood hat, red feather, forehead number, and floating bills turn a contract suffix into something the community can recognize, remember, and identify with.</p>
         </div>
       </div>
     </section>
 
-    <section id="vision" class="section scene vision-section">
-      <div class="scene-image scene-image-vision" aria-hidden="true"></div>
-      <div class="section-shade section-shade-vision" aria-hidden="true"></div>
-
-      <div class="section-shell">
-        <p class="eyebrow">THE VISION</p>
-        <h2>YOUR PROJECT HAS A NAME.<br />YOUR CONTRACT SHOULD<br />HAVE AN IDENTITY.</h2>
-
-        <!-- THE IDEA -->
-        <div class="vision-block">
-          <span class="vision-index">01</span>
-          <h3 class="vision-heading">THE IDEA</h3>
-          <p class="vision-subheading">Crypto has an identity problem.</p>
-          <div class="vision-copy">
-            <p>
-              Crypto projects spend years building names, logos, websites,
-              and social accounts. But the most permanent part of a project
-              is often ignored: <strong>the contract address.</strong>
-            </p>
-            <p>
-              A contract address is more than a string. It contains origin,
-              transaction history, ownership history, and liquidity history.
-              It is the permanent fingerprint of a project.
-            </p>
-            <p>
-              Yet the most important identifier in crypto is still treated
-              as nothing more than random characters.
-            </p>
-            <p class="vision-belief-statement-sm">
-              We believe this can change.
-            </p>
-          </div>
-        </div>
-
-        <!-- THE EVOLUTION -->
-        <div class="vision-block">
-          <span class="vision-index">02</span>
-          <h3 class="vision-heading">THE EVOLUTION</h3>
-          <p class="vision-subheading">The internet solved this before.</p>
-          <div class="vision-copy">
-            <p>
-              Before domains, the internet used IP addresses. Machines
-              understood them. Humans didn't. Domains transformed technical
-              addresses into recognizable identities.
-            </p>
-            <p class="vision-evolution-tagline">
-              From location → identity.
-            </p>
-          </div>
-
-          <div class="vision-evolution-grid">
-            <div class="vision-evolution-item">
-              <span class="evolution-label">BEFORE</span>
-              <code class="evolution-code evolution-code-dim">93.184.216.34</code>
-              <span class="evolution-caption">A raw IP address</span>
-            </div>
-            <div class="vision-evolution-arrow">→</div>
-            <div class="vision-evolution-item">
-              <span class="evolution-label">AFTER</span>
-              <code class="evolution-code evolution-code-bright">example.com</code>
-              <span class="evolution-caption">A recognizable identity</span>
-            </div>
-          </div>
-
-          <div class="vision-copy" style="margin-top: 32px;">
-            <p>Crypto is waiting for the same evolution.</p>
-          </div>
-
-          <div class="vision-evolution-grid">
-            <div class="vision-evolution-item">
-              <span class="evolution-label">TODAY</span>
-              <code class="evolution-code evolution-code-dim">0x83a7f91b92...</code>
-              <span class="evolution-caption">A random string</span>
-            </div>
-            <div class="vision-evolution-arrow">→</div>
-            <div class="vision-evolution-item">
-              <span class="evolution-label">TOMORROW</span>
-              <code class="evolution-code evolution-code-bright">Recognizable Contract Identity</code>
-              <span class="evolution-caption">An identity that carries meaning, origin, recognition, and history</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- THE EXPERIMENT -->
-        <div class="vision-block">
-          <span class="vision-index">03</span>
-          <h3 class="vision-heading">THE EXPERIMENT</h3>
-          <p class="vision-subheading">Why FACE4663 exists.</p>
-          <div class="vision-copy">
-            <p>
-              FACE4663 is the first step toward exploring contract identity.
-            </p>
-            <p>
-              Not because the problem is easy.
-            </p>
-            <p>
-              But because it is worth solving.
-            </p>
-            <p>
-              Creating truly rare and meaningful contract identities requires
-              computation, innovation, and time. The challenge is real.
-            </p>
-            <p class="vision-belief-statement-sm">
-              And that is exactly why it matters.
-            </p>
-            <p>
-              The burn address <code>0x0000...dEaD</code> proved an address
-              can become an identity — not through cryptography, but through
-              consensus alone. Hundreds of thousands of tokens across every
-              EVM chain use it. Everyone recognizes it. No one questions it.
-            </p>
-            <p>
-              FACE4663 takes that further. It carries cryptographic proof
-              of origin — a vanity address mined to become recognizable,
-              not just chosen.
-            </p>
-            <p>
-              FACE4663 is not about creating one rare address.
-              It is about exploring a future where contract addresses
-              can become recognizable identities for projects,
-              communities, and cultures on-chain.
-            </p>
-          </div>
-        </div>
-
-        <!-- THE FUTURE -->
-        <div class="vision-block">
-          <span class="vision-index">04</span>
-          <h3 class="vision-heading">THE FUTURE</h3>
-          <p class="vision-subheading">Beyond one address.</p>
-          <div class="vision-copy">
-            <p>
-              FACE4663 represents a bigger idea: contract addresses can
-              become more than technical identifiers. They can become
-              recognizable identities on-chain.
-            </p>
-            <p>A future built around:</p>
-            <ul class="vision-list">
-              <li>Stronger proof of origin</li>
-              <li>Recognizable identities</li>
-              <li>Better verification</li>
-              <li>Rare address patterns</li>
-            </ul>
-            <p>
-              The goal is not only to create memorable addresses.
-              The goal is to make identity visible.
-            </p>
-          </div>
-        </div>
-
-        <!-- THE BELIEF -->
-        <div class="vision-block vision-block-final">
-          <span class="vision-index">05</span>
-          <h3 class="vision-heading">THE BELIEF</h3>
-          <div class="vision-belief">
-            <p class="vision-belief-item">A website can disappear.</p>
-            <p class="vision-belief-item">A social account can be suspended.</p>
-            <p class="vision-belief-item">A logo can be copied.</p>
-            <p class="vision-belief-item">A name can be replicated.</p>
-            <p class="vision-belief-statement">But history cannot be rewritten.</p>
-            <p class="vision-belief-final">The blockchain remembers.</p>
-          </div>
-        </div>
+    <section id="vision" class="section section-vision">
+      <div class="section-index">[ 0x03 / IDENTITY THESIS ]</div>
+      <div class="section-head"><p class="eyebrow">THE VISION</p><h2>YOUR PROJECT HAS A NAME.<br>YOUR CONTRACT SHOULD<br>HAVE AN IDENTITY.</h2></div>
+      <div class="vision-grid">
+        <article class="vision-card"><span>01</span><h3>THE IDEA</h3><h4>Crypto has an identity problem.</h4><p>Crypto projects spend years building names, logos, websites, and social accounts. But the most permanent part of a project is often ignored: the contract address.</p><p>A contract address is more than a string. It contains origin, transaction history, ownership history, and liquidity history. It is the permanent fingerprint of a project.</p><p>Yet the most important identifier in crypto is still treated as nothing more than random characters.</p><b>We believe this can change.</b></article>
+        <article class="vision-card evolution-card"><span>02</span><h3>THE EVOLUTION</h3><h4>The internet solved this before.</h4><p>Before domains, the internet used IP addresses. Machines understood them. Humans didn't. Domains transformed technical addresses into recognizable identities.</p><b>From location → identity.</b><div class="evolution"><div><small>BEFORE</small><code>93.184.216.34</code><em>A raw IP address</em></div><i>→</i><div><small>AFTER</small><code>example.com</code><em>A recognizable identity</em></div></div><p>Crypto is waiting for the same evolution.</p><div class="evolution"><div><small>TODAY</small><code>0x83a7f91b92...</code><em>A random string</em></div><i>→</i><div><small>TOMORROW</small><code>Recognizable Contract Identity</code><em>Meaning, origin, recognition, and history</em></div></div></article>
+        <article class="vision-card"><span>03</span><h3>THE EXPERIMENT</h3><h4>Why FACE4663 exists.</h4><p>FACE4663 is the first step toward exploring contract identity.</p><p>Not because the problem is easy.</p><p>But because it is worth solving.</p><p>Creating truly rare and meaningful contract identities requires computation, innovation, and time. The challenge is real.</p><b>And that is exactly why it matters.</b><p>FACE4663 is not about creating one rare address. It is about exploring a future where contract addresses can become recognizable identities for projects, communities, and cultures on-chain.</p></article>
+        <article class="vision-card"><span>04</span><h3>THE FUTURE</h3><h4>Beyond one address.</h4><p>FACE4663 represents a bigger idea: contract addresses can become more than technical identifiers. They can become recognizable identities on-chain.</p><p>A future built around:</p><ul><li>Stronger proof of origin</li><li>Recognizable identities</li><li>Better verification</li><li>Rare address patterns</li></ul><b>The goal is not only to create memorable addresses. The goal is to make identity visible.</b></article>
+        <article class="vision-card belief-card"><span>05</span><h3>THE BELIEF</h3><p>A website can disappear.</p><p>A social account can be suspended.</p><p>A logo can be copied.</p><p>A name can be replicated.</p><h4>But history cannot be rewritten.</h4><strong>The blockchain remembers.</strong></article>
       </div>
     </section>
 
-    <section id="identity" class="section scene identity-section">
-      <div class="scene-image scene-image-identity" aria-hidden="true"></div>
-      <div class="section-shade section-shade-strong" aria-hidden="true"></div>
+    <section id="identity" class="section section-identity">
+      <div class="section-index">[ 0x04 / IDENTITY MODULES ]</div>
+      <div class="section-head"><p class="eyebrow">ONE IDENTITY · THREE PARTS</p><h2>THE FACE. THE CHAIN.<br>THE SIGNATURE.</h2></div>
+      <div class="identity-modules">
+        <article><span>01</span><div class="module-glyph">◉</div><h3>FACE</h3><p>The mascot, character, and recognition people remember.</p></article>
+        <article><span>02</span><div class="module-glyph">4663</div><h3>4663</h3><p>The Robinhood Chain ID permanently embedded in the brand.</p></article>
+        <article><span>03</span><div class="module-glyph">0x</div><h3>face4663</h3><p>The unique lowercase vanity ending that makes the identity recognizable on-chain.</p></article>
+      </div>
+      <p class="identity-closing">The beginning of a new way to think about contract identity.</p>
+    </section>
 
-      <div class="section-shell">
-        <p class="eyebrow">ONE IDENTITY · THREE PARTS</p>
-        <div class="identity-grid">
-          <article class="identity-item">
-            <span class="identity-index">01</span>
-            <h3>FACE</h3>
-            <p>The mascot, character, and recognition people remember.</p>
-          </article>
-
-          <article class="identity-item">
-            <span class="identity-index">02</span>
-            <h3>4663</h3>
-            <p>The Robinhood Chain ID permanently embedded in the brand.</p>
-          </article>
-
-          <article class="identity-item">
-            <span class="identity-index">03</span>
-            <h3>face4663</h3>
-            <p>The unique lowercase vanity ending that makes the identity recognizable on-chain.</p>
-          </article>
-        </div>
-
-        <p class="identity-closing">
-          The beginning of a new way to think about contract identity.
-        </p>
+    <section id="contract" class="section section-contract">
+      <div class="section-index">[ 0x05 / VERIFICATION TERMINAL ]</div>
+      <div class="contract-layout">
+        <div class="section-head"><p class="eyebrow">THE ADDRESS IS THE IDENTITY</p><h2>VERIFY IT.<br>DON'T TRUST A LOOKALIKE.</h2><p>Always check that the official contract ends in <code>face4663</code>. Always verify the official contract address before interacting.</p></div>
+        <div class="terminal identity-frame"><div class="terminal-top"><span>ROBINHOOD CHAIN</span><span>CHAIN ID 4663</span></div><code class="full-address" data-contract-full>0x00000000000000000000000000000000face4663</code><div class="terminal-row"><span>VANITY ENDING</span><strong>face4663</strong></div><div class="terminal-actions"><button class="hud-button" type="button" data-copy-contract>Copy Contract</button><a class="hud-button ghost" href="#" data-explorer-link target="_blank" rel="noopener">Verify On-Chain</a></div><p class="terminal-status" data-copy-status aria-live="polite"></p></div>
       </div>
     </section>
 
-    <section id="contract" class="section scene contract-section">
-      <div class="scene-image scene-image-contract" aria-hidden="true"></div>
-      <div class="section-shade section-shade-contract" aria-hidden="true"></div>
-
-      <div class="section-shell contract-layout">
-        <div class="contract-heading">
-          <p class="eyebrow">THE ADDRESS IS THE IDENTITY</p>
-          <h2>VERIFY IT.<br />DON'T TRUST A LOOKALIKE.</h2>
-          <p>
-            Always check that the official contract ends in
-            <code>face4663</code>.
-          </p>
-          <p>
-            Always verify the official contract address before interacting.
-          </p>
-        </div>
-
-        <div class="contract-artifact">
-          <div class="artifact-topline">
-            <span>ROBINHOOD CHAIN</span>
-            <span>CHAIN ID 4663</span>
-          </div>
-
-          <div class="full-contract">
-            <code data-contract-full>0x00000000000000000000000000000000face4663</code>
-          </div>
-
-          <div class="artifact-ending">
-            <span>VANITY ENDING</span>
-            <strong>face4663</strong>
-          </div>
-
-          <div class="artifact-actions">
-            <button class="button button-primary" type="button" data-copy-contract>
-              Copy Contract
-            </button>
-            <a class="button button-ghost" href="#" data-explorer-link target="_blank" rel="noopener">
-              Verify On-Chain
-            </a>
-          </div>
-
-          <p class="copy-status" data-copy-status aria-live="polite"></p>
-        </div>
-      </div>
+    <section id="chart" class="section section-chart">
+      <div class="section-index">[ 0x06 / LIVE MARKET FEED ]</div>
+      <div class="section-head split"><div><p class="eyebrow">FACE4663 LIVE ON-CHAIN</p><h2>WATCH THE MARKET<br>WITHOUT LEAVING THE FACE.</h2></div><p>Price, volume, liquidity, and market activity will appear here through the official DEX chart.</p></div>
+      <div class="chart-shell identity-frame"><iframe data-chart-frame title="FACE4663 live DEX chart" loading="lazy"></iframe><div class="chart-placeholder" data-chart-placeholder><span>COMING SOON</span><strong>LIVE CHART AFTER LAUNCH</strong><p>Add the official DEX pair URL in <code>script.js</code>.</p></div></div>
+      <div class="chart-actions"><a class="hud-button" href="#" data-trade-link target="_blank" rel="noopener">Trade FACE4663</a><a class="hud-button ghost" href="#" data-full-chart-link target="_blank" rel="noopener">Open Full Chart</a><button class="hud-button ghost" type="button" data-copy-contract>Copy Contract</button></div>
     </section>
 
-    <section id="chart" class="section scene chart-section">
-      <div class="scene-image scene-image-chart" aria-hidden="true"></div>
-      <div class="section-shade section-shade-strong" aria-hidden="true"></div>
-
-      <div class="section-shell">
-        <div class="chart-heading">
-          <div>
-            <p class="eyebrow">FACE4663 LIVE ON-CHAIN</p>
-            <h2>WATCH THE MARKET<br />WITHOUT LEAVING THE FACE.</h2>
-          </div>
-        </div>
-
-        <div class="chart-frame">
-          <iframe
-            data-chart-frame
-            title="FACE4663 live DEX chart"
-            loading="lazy"
-            referrerpolicy="no-referrer"
-            allowfullscreen
-          ></iframe>
-
-          <div class="chart-placeholder" data-chart-placeholder>
-            <span class="placeholder-kicker">COMING SOON</span>
-            <strong>Live chart after launch</strong>
-          </div>
-        </div>
-
-        <div class="chart-actions">
-          <a class="button button-primary" href="#" data-trade-link target="_blank" rel="noopener">
-            Trade FACE4663
-          </a>
-          <a class="button button-ghost" href="#" data-full-chart-link target="_blank" rel="noopener">
-            Open Full Chart
-          </a>
-          <button class="button button-ghost" type="button" data-copy-contract>
-            Copy Contract
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section id="community" class="section scene community-section">
-      <div class="scene-image scene-image-community" aria-hidden="true"></div>
-      <div class="section-shade section-shade-community" aria-hidden="true"></div>
-
-      <div class="section-shell community-layout">
-        <p class="eyebrow">OWNED BY THE COMMUNITY</p>
-        <h2>
-          BUILT BY THE COMMUNITY.<br />
-          RECOGNIZED BY THE FACE.<br />
-          VERIFIED BY THE ADDRESS.
-        </h2>
-        <p class="community-copy">
-          FACE4663 is not a developer-centered narrative. The community owns
-          the culture, spreads the face, and protects the identity by
-          verifying and sharing the correct contract.
-        </p>
-
-        <div class="community-actions">
-          <a class="button button-primary" href="#" data-x-link target="_blank" rel="noopener">Follow on X</a>
-          <a class="button button-ghost" href="#chart">Watch Live Chart</a>
-        </div>
-      </div>
+    <section id="community" class="section section-community">
+      <div class="community-face" aria-hidden="true"><img src="./assets/face4663-profile.webp" alt=""></div>
+      <div class="section-index">[ 0x07 / CULTURE LAYER ]</div>
+      <div class="community-content"><p class="eyebrow">OWNED BY THE COMMUNITY</p><h2>BUILT BY THE COMMUNITY.<br>RECOGNIZED BY THE FACE.<br>VERIFIED BY THE ADDRESS.</h2><p>FACE4663 is not a developer-centered narrative. The community owns the culture, spreads the face, and protects the identity by verifying and sharing the correct contract.</p><div class="chart-actions"><a class="hud-button" href="#" data-x-link target="_blank" rel="noopener">Follow on X</a><a class="hud-button ghost" href="#chart">Watch Live Chart</a></div></div>
     </section>
   </main>
 
-  <footer class="site-footer scene">
-    <div class="scene-image scene-image-footer" aria-hidden="true"></div>
-    <div class="footer-shade" aria-hidden="true"></div>
+  <footer><a class="wordmark" href="#top"><span>FACE</span><b>4663</b></a><p>The face. The address. The identity of 4663.</p><div><span>Robinhood Chain · 4663</span><span>Contract ending · face4663</span></div></footer>
 
-    <div class="footer-content">
-      <div>
-        <strong>FACE4663</strong>
-        <p>The face. The address. The identity of 4663.</p>
-      </div>
-      <div class="footer-meta">
-        <span>Robinhood Chain · 4663</span>
-        <span>Contract ending · face4663</span>
-      </div>
-    </div>
-  </footer>
-
-  <script src="./script.js?v=e01a450"></script>
+  <div class="verify-modal" data-verify-modal hidden><div class="verify-box identity-frame"><button type="button" data-verify-close aria-label="Close">×</button><p data-verify-line>SCANNING ADDRESS...</p><div class="verify-progress"><i></i></div><strong data-verify-result></strong></div></div>
+  <script src="./script.js"></script>
 </body>
 </html>
