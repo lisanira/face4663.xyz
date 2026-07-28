@@ -645,6 +645,14 @@ h2 {
   line-height: 1.55;
 }
 
+.identity-closing {
+  margin-top: 48px;
+  text-align: center;
+  font: 600 16px/1.6 "IBM Plex Mono", monospace;
+  color: var(--lime-strong);
+  letter-spacing: 0.04em;
+}
+
 .scene-image-contract {
   background-position: 50% 54%;
 }
