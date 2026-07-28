@@ -400,6 +400,50 @@ h2 {
   color: var(--lime-strong);
 }
 
+.scene-image-vision {
+  background-position: 48% 50%;
+  filter: saturate(0.85) brightness(0.9);
+}
+
+.section-shade-vision {
+  background:
+    linear-gradient(180deg, rgba(9, 13, 7, 0.92), rgba(9, 13, 7, 0.78)),
+    linear-gradient(90deg, rgba(9, 13, 7, 0.88), rgba(9, 13, 7, 0.42));
+}
+
+.vision-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(56px, 8vw, 130px);
+  align-items: start;
+}
+
+.vision-copy {
+  max-width: 560px;
+  padding-top: 42px;
+  border-top: 1px solid var(--line);
+}
+
+.vision-copy p {
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.vision-copy p:first-child {
+  margin-top: 0;
+}
+
+.vision-copy strong {
+  color: var(--lime-strong);
+}
+
+.vision-tagline {
+  margin-top: 36px;
+  color: var(--lime-strong);
+  font: 600 15px/1.6 "IBM Plex Mono", monospace;
+  letter-spacing: 0.04em;
+}
+
 .scene-image-identity {
   background-position: 44% 40%;
   transform: scale(1.1);
@@ -732,6 +776,7 @@ h2 {
   }
 
   .story-layout,
+  .vision-layout,
   .contract-layout,
   .chart-heading {
     grid-template-columns: 1fr;
@@ -852,6 +897,7 @@ h2 {
   }
 
   .story-copy p,
+  .vision-copy p,
   .contract-heading p,
   .chart-heading > p,
   .community-copy {
