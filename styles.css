@@ -552,6 +552,58 @@ h2 {
   line-height: 1.1;
 }
 
+.vision-belief-final {
+  margin-top: 12px;
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1.1;
+  opacity: 0.7;
+}
+
+.vision-belief-statement-sm {
+  margin-top: 28px;
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--lime-strong);
+  line-height: 1.2;
+}
+
+.vision-evolution-tagline {
+  margin-top: 20px;
+  font: 600 15px/1.6 "IBM Plex Mono", monospace;
+  color: var(--lime-strong);
+  letter-spacing: 0.04em;
+}
+
+.vision-list {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: none;
+}
+
+.vision-list li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 1.65;
+  color: rgba(240, 227, 189, 0.78);
+}
+
+.vision-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--lime-strong);
+}
+
 .scene-image-identity {
   background-position: 44% 40%;
   transform: scale(1.1);
