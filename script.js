@@ -8,6 +8,7 @@ const CONFIG = {
   chartEmbedUrl: "",
   fullChartUrl: "#",
   tradeUrl: "#",
+  ponsUrl: "#",
   xUrl: "#"
 };
 
@@ -38,6 +39,10 @@ document.querySelectorAll("[data-trade-link]").forEach((link) => {
 
 document.querySelectorAll("[data-x-link]").forEach((link) => {
   link.href = CONFIG.xUrl;
+});
+
+document.querySelectorAll("[data-pons-link]").forEach((link) => {
+  link.href = CONFIG.ponsUrl;
 });
 
 const chartFrame = document.querySelector("[data-chart-frame]");
