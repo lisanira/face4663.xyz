@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#050805" />
+  <meta name="description" content="FACE4663 Contract Identity Lab — Research contract identity, measure vanity rarity, and understand CREATE2 address generation." />
+  <title>FACE4663 Contract Identity Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png?v=4">
+  <link rel="shortcut icon" href="/favicon.png?v=4">
+  <link rel="stylesheet" href="./lab.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="site-header" data-header>
+    <a class="wordmark" href="/" aria-label="FACE4663 home"><span>FACE</span><b>4663</b></a>
+    <nav class="nav" aria-label="Lab navigation">
+      <a href="#playground">Playground</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#inspector">Inspector</a>
+      <a href="#learn">Learn</a>
+      <a href="#benchmark">Benchmark</a>
+    </nav>
+    <a class="hud-button header-back" href="/">← Homepage</a>
+  </header>
+
+  <main>
+    <!-- 01 HERO -->
+    <section class="lab-hero" id="top">
+      <div class="hex-field" aria-hidden="true"></div>
+      <div class="code-rain" aria-hidden="true">SALT · INITCODE · FACTORY · CREATE2 · FACE4663</div>
+      <div class="section-index">[ 0x01 / CONTRACT IDENTITY LAB ]</div>
+      <p class="eyebrow">FACE4663 RESEARCH</p>
+      <h1>FACE4663 CONTRACT<br>IDENTITY LAB</h1>
+      <p class="lab-hero-desc">An open research lab exploring contract identity on-chain — how addresses are generated, how rarity is measured, and how recognizability can become verifiable identity.</p>
+      <p class="lab-hero-statement identity-frame">Understand the address. Measure the rarity. Verify the identity.</p>
+    </section>
+
+    <!-- 02 TRY THE PLAYGROUND -->
+    <section class="section" id="playground">
+      <div class="section-index">[ 0x02 / VANITY PLAYGROUND ]</div>
+      <div class="section-head">
+        <p class="eyebrow">TRY THE PLAYGROUND</p>
+        <h2>CHECK ANY ADDRESS<br>FOR A PATTERN</h2>
+        <p>Paste a contract address and a hex pattern to simulate rarity analysis. No actual CREATE2 mining — simulation only.</p>
+      </div>
+
+      <form class="playground-form identity-frame" id="playgroundForm" aria-label="Vanity pattern checker">
+        <div class="form-row">
+          <label for="pg-address">Contract Address</label>
+          <input type="text" id="pg-address" placeholder="0x00000000000000000000000000000000face4663" autocomplete="off" spellcheck="false" />
+          <span class="field-hint">Must be 0x + 40 hex characters (0-9, a-f)</span>
+        </div>
+        <div class="form-row-inline">
+          <div class="form-row">
+            <label for="pg-mode">Mode</label>
+            <select id="pg-mode">
+              <option value="suffix">Suffix</option>
+              <option value="prefix">Prefix</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="pg-target">Target Pattern</label>
+            <input type="text" id="pg-target" placeholder="face4663" autocomplete="off" spellcheck="false" />
+            <span class="field-hint">Hex only: 0-9, a-f (auto-lowercased)</span>
+          </div>
+        </div>
+        <button type="submit" class="hud-button">Check Pattern</button>
+      </form>
+
+      <div class="playground-output identity-frame" id="playgroundOutput" hidden aria-live="polite">
+        <div class="result-grid">
+          <div class="result-item"><span class="result-label">Address</span><span class="result-value" id="pg-r-address">—</span></div>
+          <div class="result-item"><span class="result-label">Validity</span><span class="result-value" id="pg-r-valid">—</span></div>
+          <div class="result-item"><span class="result-label">Pattern</span><span class="result-value" id="pg-r-pattern">—</span></div>
+          <div class="result-item"><span class="result-label">Mode</span><span class="result-value" id="pg-r-mode">—</span></div>
+          <div class="result-item"><span class="result-label">Pattern Length</span><span class="result-value" id="pg-r-length">—</span></div>
+          <div class="result-item"><span class="result-label">Match</span><span class="result-value" id="pg-r-match">—</span></div>
+          <div class="result-item"><span class="result-label">Difficulty (2^n)</span><span class="result-value" id="pg-r-difficulty">—</span></div>
+          <div class="result-item"><span class="result-label">Avg Attempts (16^n)</span><span class="result-value" id="pg-r-attempts">—</span></div>
+          <div class="result-item"><span class="result-label">Rarity</span><span class="result-value" id="pg-r-rarity">—</span></div>
+        </div>
+        <p class="disclaimer">Simulation only. No actual CREATE2 salt mining occurs in this tool.</p>
+      </div>
+    </section>
+
+    <!-- 03 VANITY PATTERN CALCULATOR -->
+    <section class="section" id="calculator">
+      <div class="section-index">[ 0x03 / PATTERN CALCULATOR ]</div>
+      <div class="section-head">
+        <p class="eyebrow">VANITY PATTERN CALCULATOR</p>
+        <h2>CALCULATE THE COST<br>OF A VANITY ADDRESS</h2>
+        <p>Estimate difficulty, time, and probability for mining a vanity contract address with specific prefix/suffix patterns.</p>
+      </div>
+
+      <div class="calc-layout">
+        <form class="calc-form identity-frame" id="calcForm" aria-label="Vanity calculator inputs">
+          <div class="form-row">
+            <label for="calc-mode">Pattern Mode</label>
+            <select id="calc-mode">
+              <option value="suffix">Suffix</option>
+              <option value="prefix">Prefix</option>
+              <option value="both">Prefix + Suffix</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="calc-prefix">Prefix Target</label>
+            <input type="text" id="calc-prefix" placeholder="face" autocomplete="off" spellcheck="false" />
+            <span class="field-hint">Hex: 0-9, a-f</span>
+          </div>
+          <div class="form-row">
+            <label for="calc-suffix">Suffix Target</label>
+            <input type="text" id="calc-suffix" placeholder="face4663" autocomplete="off" spellcheck="false" />
+            <span class="field-hint">Hex: 0-9, a-f</span>
+          </div>
+          <div class="form-row">
+            <label for="calc-speed">Salts / Second</label>
+            <div class="speed-presets" role="group" aria-label="Speed presets">
+              <button type="button" class="speed-preset" data-speed="100000000">100M</button>
+              <button type="button" class="speed-preset" data-speed="300000000">300M</button>
+              <button type="button" class="speed-preset active" data-speed="500000000">500M</button>
+              <button type="button" class="speed-preset" data-speed="1000000000">1B</button>
+              <button type="button" class="speed-preset" data-speed="custom">Custom</button>
+            </div>
+            <input type="number" id="calc-speed" value="500000000" min="1" step="1" autocomplete="off" />
+            <span class="field-hint">Hash operations per second</span>
+          </div>
+        </form>
+
+        <div class="calc-results identity-frame" id="calcResults" aria-live="polite">
+          <h3>RESULTS</h3>
+          <div class="result-grid">
+            <div class="result-item"><span class="result-label">Pattern Type</span><span class="result-value" id="cr-type">—</span></div>
+            <div class="result-item"><span class="result-label">Locked Hex Chars</span><span class="result-value" id="cr-chars">0</span></div>
+            <div class="result-item"><span class="result-label">Difficulty (2^n)</span><span class="result-value" id="cr-difficulty">1</span></div>
+            <div class="result-item"><span class="result-label">Avg Attempts (16^n)</span><span class="result-value" id="cr-attempts">1</span></div>
+            <div class="result-item"><span class="result-label">Rarity</span><span class="result-value" id="cr-rarity">1 in 1</span></div>
+            <div class="result-item"><span class="result-label">Avg Search Time</span><span class="result-value" id="cr-avg-time">—</span></div>
+            <div class="result-item"><span class="result-label">Median Time (50%)</span><span class="result-value" id="cr-median">—</span></div>
+            <div class="result-item"><span class="result-label">90th Percentile</span><span class="result-value" id="cr-p90pct">—</span></div>
+            <div class="result-item"><span class="result-label">Prob ≤ 1 min</span><span class="result-value" id="cr-p1m">—</span></div>
+            <div class="result-item"><span class="result-label">Prob ≤ 1 hr</span><span class="result-value" id="cr-p1h">—</span></div>
+            <div class="result-item"><span class="result-label">Prob ≤ 1 day</span><span class="result-value" id="cr-p1d">—</span></div>
+            <div class="result-item"><span class="result-label">Prob ≤ 1 week</span><span class="result-value" id="cr-p1w">—</span></div>
+          </div>
+          <p class="disclaimer">Mining is probabilistic — actual time may vary. These are statistical estimates, not guarantees.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 ADDRESS INSPECTOR -->
+    <section class="section" id="inspector">
+      <div class="section-index">[ 0x04 / ADDRESS INSPECTOR ]</div>
+      <div class="section-head">
+        <p class="eyebrow">ADDRESS INSPECTOR</p>
+        <h2>INSPECT ANY ADDRESS<br>FOR UNIQUE PATTERNS</h2>
+        <p>Analyze an address for leading zeros, repeated characters, and interesting patterns. Compare against a target to estimate rarity.</p>
+      </div>
+
+      <form class="inspector-form identity-frame" id="inspectorForm" aria-label="Address inspector">
+        <div class="form-row">
+          <label for="ins-address">Contract Address</label>
+          <input type="text" id="ins-address" placeholder="0x00000000000000000000000000000000face4663" autocomplete="off" spellcheck="false" />
+          <span class="field-hint">Must be 0x + 40 hex characters</span>
+        </div>
+        <div class="form-row-inline">
+          <div class="form-row">
+            <label for="ins-target">Match Target (optional)</label>
+            <input type="text" id="ins-target" placeholder="face4663" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="form-row">
+            <label for="ins-target-mode">Target Mode</label>
+            <select id="ins-target-mode">
+              <option value="suffix">Suffix</option>
+              <option value="prefix">Prefix</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="hud-button">Inspect Address</button>
+      </form>
+
+      <div class="inspector-output identity-frame" id="inspectorOutput" hidden aria-live="polite">
+        <div class="result-grid">
+          <div class="result-item full-width"><span class="result-label">Full Address</span><span class="result-value mono-wrap" id="in-r-full">—</span></div>
+          <div class="result-item"><span class="result-label">Char Count (after 0x)</span><span class="result-value" id="in-r-count">—</span></div>
+          <div class="result-item"><span class="result-label">Leading Zeros</span><span class="result-value" id="in-r-leading">—</span></div>
+          <div class="result-item"><span class="result-label">Trailing Zeros</span><span class="result-value" id="in-r-trailing">—</span></div>
+          <div class="result-item"><span class="result-label">First 4 (after 0x)</span><span class="result-value" id="in-r-first4">—</span></div>
+          <div class="result-item"><span class="result-label">First 8 (after 0x)</span><span class="result-value" id="in-r-first8">—</span></div>
+          <div class="result-item"><span class="result-label">Last 4</span><span class="result-value" id="in-r-last4">—</span></div>
+          <div class="result-item"><span class="result-label">Last 8</span><span class="result-value" id="in-r-last8">—</span></div>
+          <div class="result-item"><span class="result-label">Repeated Prefix</span><span class="result-value" id="in-r-rep-prefix">—</span></div>
+          <div class="result-item"><span class="result-label">Repeated Suffix</span><span class="result-value" id="in-r-rep-suffix">—</span></div>
+          <div class="result-item"><span class="result-label">Target Match</span><span class="result-value" id="in-r-match">—</span></div>
+          <div class="result-item"><span class="result-label">Estimated Rarity</span><span class="result-value" id="in-r-rarity">—</span></div>
+        </div>
+        <p class="disclaimer warning">⚠ Visually interesting ≠ authentic identity. Always verify origin on-chain independently.</p>
+      </div>
+    </section>
+
+    <!-- 05 EDUCATIONAL ACCORDION -->
+    <section class="section" id="learn">
+      <div class="section-index">[ 0x05 / KNOWLEDGE BASE ]</div>
+      <div class="section-head">
+        <p class="eyebrow">EDUCATIONAL REFERENCE</p>
+        <h2>UNDERSTAND<br>CONTRACT IDENTITY</h2>
+      </div>
+
+      <div class="accordion" role="list">
+        <!-- 1 -->
+        <details class="acc-item identity-frame" role="listitem">
+          <summary><span class="acc-num">01</span> What Is a Vanity Contract Address?</summary>
+          <div class="acc-body">
+            <p>A <strong>vanity contract address</strong> is a smart contract address that contains a recognizable prefix or suffix — like <code>0xface...4663</code> or <code>0x...face4663</code>.</p>
+            <p>The address is generated by searching through many possible deployment parameters (typically CREATE2 salts) until one produces an address matching the desired pattern.</p>
+            <p><strong>Important:</strong> A vanity address does <em>not</em> change the contract's functionality, security, or behavior. The contract code is identical regardless of the address. It is purely cosmetic — but cosmetics can become identity.</p>
+          </div>
+        </details>
+        <!-- 2 -->
+        <details class="acc-item identity-frame" role="listitem">
+          <summary><span class="acc-num">02</span> Prefix vs Suffix Patterns</summary>
+          <div class="acc-body">
+            <p><strong>Prefix pattern:</strong> The address starts with specific characters after <code>0x</code>. Example: <code>0xFACE4663...</code></p>
+            <p><strong>Suffix pattern:</strong> The address ends with specific characters. Example: <code>0x...face4663</code></p>
+            <p><strong>Key difference:</strong> Each additional hex character you lock adds <strong>4 bits</strong> of difficulty, making the search <strong>16× harder</strong> per character.</p>
+            <table class="learn-table">
+              <thead><tr><th>Chars</th><th>Difficulty (16^n)</th><th>Avg Attempts</th></tr></thead>
+              <tbody>
+                <tr><td>4</td><td>65,536</td><td>65,536</td></tr>
+                <tr><td>6</td><td>16,777,216</td><td>16,777,216</td></tr>
+                <tr><td>8</td><td>4,294,967,296</td><td>~4.3 billion</td></tr>
+              </tbody>
+            </table>
+            <p>Suffix patterns are more common in practice because prefix patterns require specific factory addresses.</p>
+          </div>
+        </details>
+        <!-- 3 -->
+        <details class="acc-item identity-frame" role="listitem">
+          <summary><span class="acc-num">03</span> Valid Hex Characters</summary>
+          <div class="acc-body">
+            <p>Ethereum addresses use <strong>hexadecimal</strong> encoding. Valid characters after <code>0x</code> are:</p>
+            <p class="hex-grid" aria-label="Valid hex characters: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+              <span>8</span><span>9</span><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span>
+            </p>
+            <p>That's <strong>16 possible values</strong> per character position. Hex addresses are <strong>case-insensitive</strong> on EVM chains — <code>0xABCD</code> and <code>0xabcd</code> refer to the same address.</p>
+            <p>Characters like <code>g, h, x, y, z</code> are <strong>invalid</strong> in hex strings and will be rejected by this lab's tools.</p>
+          </div>
+        </details>
+        <!-- 4 -->
+        <details class="acc-item identity-frame" role="listitem">
+          <summary><span class="acc-num">04</span> CREATE2 Salt Mining</summary>
+          <div class="acc-body">
+            <p>The <code>CREATE2</code> opcode allows <strong>deterministic address generation</strong>. The deployed address is calculated from three inputs:</p>
+            <div class="formula identity-frame">
+              <code>address = keccak256(0xff ++ factory ++ salt ++ keccak256(initCode))[12:]</code>
+            </div>
+            <p>This means you can compute the address <em>before</em> deploying, and search for a <code>salt</code> value that produces a desired pattern.</p>
+            <p><strong>The mining process:</strong></p>
+            <ol>
+              <li>Fix the factory address and init-code hash</li>
+              <li>Try different salt values (usually starting from 0 and incrementing)</li>
+              <li>Compute the CREATE2 address for each salt</li>
+              <li>Check if the address matches the target pattern</li>
+              <li>When found, deploy with that specific salt</li>
+            </ol>
+            <p>The speed of this search depends on hashing throughput — modern GPUs can compute billions of keccak256 hashes per second.</p>
+          </div>
+        </details>
+        <!-- 5 -->
+        <details class="acc-item identity-frame" role="listitem">
+          <summary><span class="acc-num">05</span> CREATE2 vs CREATE</summary>
+          <div class="acc-body">
+            <div class="comparison-table">
+              <div class="comparison-col">
+                <h4>CREATE</h4>
+                <dl>
+                  <dt>Address Factors</dt>
+                  <dd>Deployer address + deployer nonce</dd>
+                  <dt>Predictability</dt>
+                  <dd>Can predict before deployment (if nonce is known)</dd>
+                  <dt>Pattern Control</dt>
+                  <dd>Very limited — nonce must increment sequentially</dd>
+                  <dt>Deploy Cost</dt>
+                  <dd>Standard gas</dd>
+                  <dt>Key Risk</dt>
+                  <dd>Nonce-dependent; can't freely choose address</dd>
+                </dl>
+              </div>
+              <div class="comparison-col">
+                <h4>CREATE2</h4>
+                <dl>
+                  <dt>Address Factors</dt>
+                  <dd>Factory address + salt + init-code hash</dd>
+                  <dt>Predictability</dt>
+                  <dd>Fully deterministic from inputs</dd>
+                  <dt>Pattern Control</dt>
+                  <dd>Full control via salt mining</dd>
+                  <dt>Deploy Cost</dt>
+                  <dd>Standard gas + EIP-1014 activation</dd>
+                  <dt>Key Risk</dt>
+                  <dd>Changing any input changes the address entirely</dd>
+                </dl>
+              </div>
+            </div>
+            <p>CREATE2 enables vanity address mining because the <code>salt</code> parameter can be any 32-byte value, giving 2^256 possible addresses to search through.</p>
+          </div>
+        </details>
+        <!-- 6 -->
+        <details class="acc-item identity-frame" role="listitem">
+          <summary><span class="acc-num">06</span> Why Difficulty Grows Fast</summary>
+          <div class="acc-body">
+            <p>Each hex character has <strong>16 possible values</strong>. Adding one more character multiplies difficulty by 16. This exponential growth means:</p>
+            <table class="learn-table">
+              <thead><tr><th>Chars</th><th>Difficulty (2^(4n))</th><th>Avg Attempts</th><th>~Time @ 500M salts/s</th></tr></thead>
+              <tbody>
+                <tr><td>4</td><td>2^16 = 65,536</td><td>65,536</td><td>Instant</td></tr>
+                <tr><td>6</td><td>2^24 = 16,777,216</td><td>~16.8M</td><td>~0.03s</td></tr>
+                <tr><td>8</td><td>2^32 = 4,294,967,296</td><td>~4.3B</td><td>~8.6s</td></tr>
+                <tr><td>10</td><td>2^40 ≈ 1.1 × 10^12</td><td>~1.1 trillion</td><td>~36 min</td></tr>
+                <tr><td>12</td><td>2^48 ≈ 2.8 × 10^14</td><td>~281 trillion</td><td>~6.5 days</td></tr>
+              </tbody>
+            </table>
+            <p>At 12+ characters, mining requires specialized hardware running for days or weeks. This is why truly long vanity patterns are considered rare and valuable as identity markers.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 06 GENESIS BENCHMARK -->
+    <section class="section" id="benchmark">
+      <div class="section-index">[ 0x06 / GENESIS BENCHMARK ]</div>
+      <div class="section-head">
+        <p class="eyebrow">PUBLIC PROOF</p>
+        <h2>GENESIS BENCHMARK</h2>
+        <p>Transparent, verifiable proof of the mining process. Every parameter will be published for independent verification.</p>
+      </div>
+
+      <div class="benchmark-panel identity-frame">
+        <div class="benchmark-status">
+          <span class="status-badge pending">PENDING PUBLIC BENCHMARK</span>
+        </div>
+        <dl class="benchmark-fields">
+          <div><dt>Target Pattern</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Difficulty</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Hardware</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Miner / Software</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Salts / Second</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Search Start</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Search End</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Total Duration</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Factory Address</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Init-Code Hash</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Salt Used</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Predicted Address</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Deployed Contract</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Deployment Tx Hash</dt><dd class="pending-val">Pending</dd></div>
+        </dl>
+        <p class="disclaimer">Every benchmark must be reproducible. All parameters will be published for independent verification.</p>
+      </div>
+    </section>
+
+    <!-- 07 PUBLIC MILESTONES -->
+    <section class="section" id="milestones">
+      <div class="section-index">[ 0x07 / MILESTONES ]</div>
+      <div class="section-head">
+        <p class="eyebrow">PUBLIC MILESTONES</p>
+        <h2>THE PATH FORWARD</h2>
+        <p>Each milestone represents an increasing level of difficulty and a new public benchmark.</p>
+      </div>
+
+      <div class="milestones-grid">
+        <article class="milestone-card identity-frame current">
+          <div class="milestone-header">
+            <span class="milestone-name">GENESIS</span>
+            <span class="milestone-badge">Current</span>
+          </div>
+          <p class="milestone-pattern">8-char suffix</p>
+          <p class="milestone-detail">Target: <code>face4663</code> — the foundational identity suffix.</p>
+          <div class="milestone-difficulty">
+            <span>Difficulty: 2^32</span>
+            <span>~4.3 billion attempts</span>
+          </div>
+        </article>
+
+        <article class="milestone-card identity-frame planned">
+          <div class="milestone-header">
+            <span class="milestone-name">LAB I</span>
+            <span class="milestone-badge">Planned</span>
+          </div>
+          <p class="milestone-pattern">9–10 char suffix</p>
+          <p class="milestone-detail">Extending the identity suffix beyond 8 characters.</p>
+          <div class="milestone-difficulty">
+            <span>Difficulty: 2^36 — 2^40</span>
+            <span>~68B — ~1.1T attempts</span>
+          </div>
+        </article>
+
+        <article class="milestone-card identity-frame planned">
+          <div class="milestone-header">
+            <span class="milestone-name">LAB II</span>
+            <span class="milestone-badge">Planned</span>
+          </div>
+          <p class="milestone-pattern">Dual prefix + suffix</p>
+          <p class="milestone-detail">Matching both beginning and ending of the address simultaneously.</p>
+          <div class="milestone-difficulty">
+            <span>Difficulty: 2^48+</span>
+            <span>~281T+ attempts</span>
+          </div>
+        </article>
+
+        <article class="milestone-card identity-frame planned">
+          <div class="milestone-header">
+            <span class="milestone-name">FRONTIER</span>
+            <span class="milestone-badge">Long-term</span>
+          </div>
+          <p class="milestone-pattern">Faster mining, longer patterns</p>
+          <p class="milestone-detail">Pushing the boundary of what's computationally feasible for vanity identity.</p>
+          <div class="milestone-difficulty">
+            <span>Difficulty: 2^56+</span>
+            <span>Custom hardware acceleration</span>
+          </div>
+        </article>
+      </div>
+
+      <p class="disclaimer">Every milestone will be benchmarked publicly with full reproducibility.</p>
+    </section>
+
+    <!-- 08 SECURITY NOTES -->
+    <section class="section" id="security">
+      <div class="section-index">[ 0x08 / SECURITY NOTES ]</div>
+      <div class="section-head">
+        <p class="eyebrow">⚠ SECURITY</p>
+        <h2>IMPORTANT<br>SECURITY NOTES</h2>
+      </div>
+
+      <div class="security-grid">
+        <article class="security-card identity-frame warning-card">
+          <h3>Salt ≠ Private Key</h3>
+          <p>The <strong>salt</strong> used in CREATE2 deployment is <em>not</em> a private key. It is a public parameter that determines the contract address. Exposing a salt does not compromise wallet security.</p>
+        </article>
+        <article class="security-card identity-frame warning-card">
+          <h3>All Three Inputs Matter</h3>
+          <p>CREATE2 address = f(factory, salt, init-code). Changing <em>any</em> of these three inputs produces a completely different address. There is no partial match.</p>
+        </article>
+        <article class="security-card identity-frame warning-card">
+          <h3>Verify Independently</h3>
+          <p>Never trust a claimed address without verifying it on-chain yourself. Compute the CREATE2 address from the published factory, salt, and init-code hash, then compare with the deployed contract.</p>
+        </article>
+        <article class="security-card identity-frame warning-card">
+          <h3>Don't Expose Config Early</h3>
+          <p>If you plan to deploy a vanity contract, do not publish the factory address, init-code hash, or target pattern before deployment. Someone else could deploy with the same parameters first.</p>
+        </article>
+        <article class="security-card identity-frame warning-card">
+          <h3>Never Share Private Keys</h3>
+          <p>No legitimate tool, lab, or project will ever ask for your private keys, seed phrases, or wallet recovery information. <strong>Never submit these to any interface.</strong></p>
+        </article>
+        <article class="security-card identity-frame warning-card">
+          <h3>This Lab Doesn't Request Keys</h3>
+          <p>FACE4663 Contract Identity Lab is entirely client-side. No data is transmitted. No keys are requested. No wallets are connected. Everything runs in your browser.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 09 CLOSING CTA -->
+    <section class="section section-closing" id="closing">
+      <div class="section-index">[ 0x09 / CLOSING ]</div>
+      <h2>THE ADDRESS WAS<br>NEVER JUST A STRING.</h2>
+      <div class="closing-actions">
+        <a class="hud-button disabled" href="#" aria-disabled="true" tabindex="-1">View Contract — Coming Soon</a>
+        <a class="hud-button ghost" href="/">Return to Homepage</a>
+      </div>
+      <p class="closing-disclaimer">FACE4663 is an independent community project, not affiliated with Robinhood.</p>
+    </section>
+  </main>
+
+  <footer>
+    <a class="wordmark" href="/"><span>FACE</span><b>4663</b></a>
+    <p>FACE4663 is an independent community project, not affiliated with Robinhood.</p>
+    <div><span>Contract Identity Lab</span><span>Robinhood Chain · 4663</span></div>
+  </footer>
+
+  <script src="./lab.js"></script>
+</body>
+</html>
