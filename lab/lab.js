@@ -33,26 +33,6 @@ function countTrailingZeros(hex) {
   return c;
 }
 
-function findRepeatedPrefix(hex) {
-  if (hex.length < 2) return null;
-  const c = hex[0];
-  let count = 1;
-  for (let i = 1; i < hex.length; i++) {
-    if (hex[i] === c) count++; else break;
-  }
-  return count >= 2 ? c.repeat(count) : null;
-}
-
-function findRepeatedSuffix(hex) {
-  if (hex.length < 2) return null;
-  const c = hex[hex.length - 1];
-  let count = 1;
-  for (let i = hex.length - 2; i >= 0; i--) {
-    if (hex[i] === c) count++; else break;
-  }
-  return count >= 2 ? c.repeat(count) : null;
-}
-
 /** BigInt 2^n */
 function bigPow2(n) {
   if (n <= 0) return 1n;
@@ -408,8 +388,6 @@ function formatProb(p) {
   const $first8 = document.getElementById('in-r-first8');
   const $last4 = document.getElementById('in-r-last4');
   const $last8 = document.getElementById('in-r-last8');
-  const $repPrefix = document.getElementById('in-r-rep-prefix');
-  const $repSuffix = document.getElementById('in-r-rep-suffix');
   const $match = document.getElementById('in-r-match');
   const $rarity = document.getElementById('in-r-rarity');
 
@@ -448,10 +426,6 @@ function formatProb(p) {
     $last4.textContent = hex.slice(-4);
     $last8.textContent = hex.slice(-8);
 
-    const repP = findRepeatedPrefix(hex);
-    const repS = findRepeatedSuffix(hex);
-    $repPrefix.textContent = repP ? repP + ' (' + repP.length + ' chars)' : 'None';
-    $repSuffix.textContent = repS ? repS + ' (' + repS.length + ' chars)' : 'None';
 
     // Target matching
     if (target && isHexPattern(target)) {

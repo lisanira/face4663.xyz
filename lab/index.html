@@ -53,8 +53,8 @@
       <form class="playground-form identity-frame" id="playgroundForm" aria-label="Vanity pattern checker">
         <div class="form-row">
           <label for="pg-address">Contract Address</label>
-          <input type="text" id="pg-address" placeholder="0x00000000000000000000000000000000face4663" autocomplete="off" spellcheck="false" />
-          <span class="field-hint">Must be 0x + 40 hex characters (0-9, a-f)</span>
+          <input type="text" id="pg-address" placeholder="0x...example" autocomplete="off" spellcheck="false" />
+          <span class="field-hint">Example only — not the official FACE4663 contract. Must be 0x + 40 hex chars (0-9, a-f)</span>
         </div>
         <div class="form-row-inline">
           <div class="form-row">
@@ -165,7 +165,7 @@
       <form class="inspector-form identity-frame" id="inspectorForm" aria-label="Address inspector">
         <div class="form-row">
           <label for="ins-address">Contract Address</label>
-          <input type="text" id="ins-address" placeholder="0x00000000000000000000000000000000face4663" autocomplete="off" spellcheck="false" />
+          <input type="text" id="ins-address" placeholder="0x...example" autocomplete="off" spellcheck="false" />
           <span class="field-hint">Must be 0x + 40 hex characters</span>
         </div>
         <div class="form-row-inline">
@@ -194,8 +194,7 @@
           <div class="result-item"><span class="result-label">First 8 (after 0x)</span><span class="result-value" id="in-r-first8">—</span></div>
           <div class="result-item"><span class="result-label">Last 4</span><span class="result-value" id="in-r-last4">—</span></div>
           <div class="result-item"><span class="result-label">Last 8</span><span class="result-value" id="in-r-last8">—</span></div>
-          <div class="result-item"><span class="result-label">Repeated Prefix</span><span class="result-value" id="in-r-rep-prefix">—</span></div>
-          <div class="result-item"><span class="result-label">Repeated Suffix</span><span class="result-value" id="in-r-rep-suffix">—</span></div>
+
           <div class="result-item"><span class="result-label">Target Match</span><span class="result-value" id="in-r-match">—</span></div>
           <div class="result-item"><span class="result-label">Estimated Rarity</span><span class="result-value" id="in-r-rarity">—</span></div>
         </div>
@@ -236,7 +235,7 @@
                 <tr><td>8</td><td>4,294,967,296</td><td>~4.3 billion</td></tr>
               </tbody>
             </table>
-            <p>Suffix patterns are more common in practice because prefix patterns require specific factory addresses.</p>
+            <p>Prefix and suffix patterns have the same statistical difficulty when they lock the same number of hexadecimal characters. Suffixes are often chosen for branding because they appear like a signature at the end of an address.</p>
           </div>
         </details>
         <!-- 3 -->
@@ -269,7 +268,7 @@
               <li>Check if the address matches the target pattern</li>
               <li>When found, deploy with that specific salt</li>
             </ol>
-            <p>The speed of this search depends on hashing throughput — modern GPUs can compute billions of keccak256 hashes per second.</p>
+            <p>The speed of this search depends on hashing throughput — Optimized GPU miners can test hundreds of millions to billions of candidate salts per second, depending on hardware and implementation.</p>
           </div>
         </details>
         <!-- 5 -->
@@ -285,11 +284,11 @@
                   <dt>Predictability</dt>
                   <dd>Can predict before deployment (if nonce is known)</dd>
                   <dt>Pattern Control</dt>
-                  <dd>Very limited — nonce must increment sequentially</dd>
+                  <dd>Possible through deployer-key search at a selected nonce, but operationally less convenient than CREATE2</dd>
                   <dt>Deploy Cost</dt>
                   <dd>Standard gas</dd>
                   <dt>Key Risk</dt>
-                  <dd>Nonce-dependent; can't freely choose address</dd>
+                  <dd>The intended nonce must remain unchanged. Any earlier transaction or deployment from that wallet can change the resulting contract address</dd>
                 </dl>
               </div>
               <div class="comparison-col">
@@ -302,7 +301,7 @@
                   <dt>Pattern Control</dt>
                   <dd>Full control via salt mining</dd>
                   <dt>Deploy Cost</dt>
-                  <dd>Standard gas + EIP-1014 activation</dd>
+                  <dd>Similar to standard deployment, with additional hashing cost for the init code</dd>
                   <dt>Key Risk</dt>
                   <dd>Changing any input changes the address entirely</dd>
                 </dl>
@@ -347,9 +346,12 @@
         </div>
         <dl class="benchmark-fields">
           <div><dt>Target Pattern</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Pattern Type</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Pattern Length</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Difficulty</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Hardware</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Miner / Software</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Miner Version</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Salts / Second</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Search Start</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Search End</dt><dd class="pending-val">Pending</dd></div>
@@ -360,6 +362,7 @@
           <div><dt>Predicted Address</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Deployed Contract</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Deployment Tx Hash</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Explorer Verification</dt><dd class="pending-val">Pending</dd></div>
         </dl>
         <p class="disclaimer">Every benchmark must be reproducible. All parameters will be published for independent verification.</p>
       </div>
@@ -406,7 +409,7 @@
             <span class="milestone-name">LAB II</span>
             <span class="milestone-badge">Planned</span>
           </div>
-          <p class="milestone-pattern">Dual prefix + suffix</p>
+          <p class="milestone-pattern">Dual prefix–suffix feasibility research</p>
           <p class="milestone-detail">Matching both beginning and ending of the address simultaneously.</p>
           <div class="milestone-difficulty">
             <span>Difficulty: 2^48+</span>
@@ -454,7 +457,7 @@
         </article>
         <article class="security-card identity-frame warning-card">
           <h3>Don't Expose Config Early</h3>
-          <p>If you plan to deploy a vanity contract, do not publish the factory address, init-code hash, or target pattern before deployment. Someone else could deploy with the same parameters first.</p>
+          <p>If you plan to deploy a vanity contract, do not publish a discovered salt or complete executable deployment configuration before deployment unless the factory prevents unauthorized deployment or front-running.</p>
         </article>
         <article class="security-card identity-frame warning-card">
           <h3>Never Share Private Keys</h3>
@@ -475,7 +478,6 @@
         <a class="hud-button disabled" href="#" aria-disabled="true" tabindex="-1">View Contract — Coming Soon</a>
         <a class="hud-button ghost" href="/">Return to Homepage</a>
       </div>
-      <p class="closing-disclaimer">FACE4663 is an independent community project, not affiliated with Robinhood.</p>
     </section>
   </main>
 
