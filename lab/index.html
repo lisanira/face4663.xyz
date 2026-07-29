@@ -40,13 +40,13 @@
       <p class="lab-hero-statement identity-frame">Understand the address. Measure the rarity. Verify the identity.</p>
     </section>
 
-    <!-- 03 VANITY PATTERN CALCULATOR -->
+    <!-- 02 VANITY PATTERN CALCULATOR -->
     <section class="section" id="calculator">
       <div class="section-index">[ 0x02 / PATTERN CALCULATOR ]</div>
       <div class="section-head">
         <p class="eyebrow">VANITY PATTERN CALCULATOR</p>
         <h2>CALCULATE THE COST<br>OF A VANITY ADDRESS</h2>
-        <p>Estimate difficulty, time, and probability for mining a vanity contract address with specific prefix/suffix patterns.</p>
+        <p>Estimate difficulty, time, and probability for mining a vanity contract address with specific prefix/suffix patterns. Now with EIP-55 checksum casing analysis.</p>
       </div>
 
       <div class="calc-layout">
@@ -70,10 +70,18 @@
             <span class="field-hint">Hex: 0-9, a-f</span>
           </div>
           <div class="form-row">
+            <label for="calc-checksum">Checksum Requirement</label>
+            <select id="calc-checksum">
+              <option value="ignore">Ignore casing (raw hex match)</option>
+              <option value="exact">Match EIP-55 exact</option>
+            </select>
+            <span class="field-hint">Exact mode adds checksum bits: each alphabetic hex char (a-f) adds 1 bit of difficulty</span>
+          </div>
+          <div class="form-row">
             <label for="calc-speed">Salts / Second</label>
             <div class="speed-presets" role="group" aria-label="Speed presets">
               <button type="button" class="speed-preset" data-speed="100000000">100M</button>
-              <button type="button" class="speed-preset" data-speed="300000000">300M</button>
+              <button type="button" class="speed-preset" data-speed="200000000">200M</button>
               <button type="button" class="speed-preset active" data-speed="500000000">500M</button>
               <button type="button" class="speed-preset" data-speed="1000000000">1B</button>
               <button type="button" class="speed-preset" data-speed="custom">Custom</button>
@@ -88,8 +96,14 @@
           <div class="result-grid">
             <div class="result-item"><span class="result-label">Pattern Type</span><span class="result-value" id="cr-type">—</span></div>
             <div class="result-item"><span class="result-label">Locked Hex Chars</span><span class="result-value" id="cr-chars">0</span></div>
-            <div class="result-item"><span class="result-label">Difficulty (2^n)</span><span class="result-value" id="cr-difficulty">1</span></div>
-            <div class="result-item"><span class="result-label">Avg Attempts (16^n)</span><span class="result-value" id="cr-attempts">1</span></div>
+            <div class="result-item"><span class="result-label">Alphabetic Chars (a-f)</span><span class="result-value" id="cr-alpha-chars">0</span></div>
+            <div class="result-item"><span class="result-label">Raw Bits (4 × chars)</span><span class="result-value" id="cr-raw-bits">0</span></div>
+            <div class="result-item"><span class="result-label">Checksum Bits</span><span class="result-value" id="cr-checksum-bits">0</span></div>
+            <div class="result-item"><span class="result-label">Effective Bits</span><span class="result-value" id="cr-effective-bits">0</span></div>
+            <div class="result-item"><span class="result-label">Raw Difficulty (2^n)</span><span class="result-value" id="cr-difficulty">1</span></div>
+            <div class="result-item"><span class="result-label">Effective Difficulty</span><span class="result-value" id="cr-eff-difficulty">—</span></div>
+            <div class="result-item"><span class="result-label">Raw Avg Attempts</span><span class="result-value" id="cr-attempts">1</span></div>
+            <div class="result-item"><span class="result-label">Effective Avg Attempts</span><span class="result-value" id="cr-eff-attempts">—</span></div>
             <div class="result-item"><span class="result-label">Rarity</span><span class="result-value" id="cr-rarity">1 in 1</span></div>
             <div class="result-item"><span class="result-label">Avg Search Time</span><span class="result-value" id="cr-avg-time">—</span></div>
             <div class="result-item"><span class="result-label">Median Time (50%)</span><span class="result-value" id="cr-median">—</span></div>
@@ -99,25 +113,25 @@
             <div class="result-item"><span class="result-label">Prob ≤ 1 day</span><span class="result-value" id="cr-p1d">—</span></div>
             <div class="result-item"><span class="result-label">Prob ≤ 1 week</span><span class="result-value" id="cr-p1w">—</span></div>
           </div>
-          <p class="disclaimer">Mining is probabilistic — actual time may vary. These are statistical estimates, not guarantees.</p>
+          <p class="disclaimer">Mining is probabilistic — actual time may vary. These are statistical estimates, not guarantees. Effective bits include EIP-55 checksum casing constraints when enabled.</p>
         </div>
       </div>
     </section>
 
-    <!-- 04 ADDRESS INSPECTOR -->
+    <!-- 03 ADDRESS INSPECTOR -->
     <section class="section" id="inspector">
       <div class="section-index">[ 0x03 / ADDRESS INSPECTOR ]</div>
       <div class="section-head">
         <p class="eyebrow">ADDRESS INSPECTOR</p>
         <h2>INSPECT ANY ADDRESS<br>FOR UNIQUE PATTERNS</h2>
-        <p>Analyze an address structure and compare it against an explicit prefix or suffix target.</p>
+        <p>Analyze an address structure, verify EIP-55 checksum casing, and compare against an explicit prefix or suffix target.</p>
       </div>
 
       <form class="inspector-form identity-frame" id="inspectorForm" aria-label="Address inspector">
         <div class="form-row">
           <label for="ins-address">Contract Address</label>
-          <input type="text" id="ins-address" placeholder="0x...example" autocomplete="off" spellcheck="false" />
-          <span class="field-hint">0x + 40 hex characters (0-9, a-f)</span>
+          <input type="text" id="ins-address" placeholder="0x52908400098527886E0F7030069857D2E4169EE7" autocomplete="off" spellcheck="false" />
+          <span class="field-hint">0x + 40 hex characters (0-9, a-f). Try EIP-55 test: 0x52908400098527886E0F7030069857D2E4169EE7</span>
         </div>
         <div class="form-row-inline">
           <div class="form-row">
@@ -132,6 +146,13 @@
             <input type="text" id="ins-target" placeholder="face4663" autocomplete="off" spellcheck="false" />
             <span class="field-hint">Hex only: 0-9, a-f (auto-lowercased)</span>
           </div>
+          <div class="form-row">
+            <label for="ins-checksum">Checksum Requirement</label>
+            <select id="ins-checksum">
+              <option value="ignore">Ignore casing</option>
+              <option value="exact">Match EIP-55 exact</option>
+            </select>
+          </div>
         </div>
         <button type="submit" class="hud-button">Inspect Address</button>
       </form>
@@ -140,6 +161,7 @@
         <div class="result-grid">
           <div class="result-item full-width"><span class="result-label">Full Address</span><span class="result-value mono-wrap" id="in-r-full">—</span></div>
           <div class="result-item"><span class="result-label">Validity</span><span class="result-value" id="in-r-valid">—</span></div>
+          <div class="result-item full-width"><span class="result-label">Canonical EIP-55</span><span class="result-value mono-wrap" id="in-r-canonical">—</span></div>
           <div class="result-item"><span class="result-label">Char Count</span><span class="result-value" id="in-r-count">—</span></div>
           <div class="result-item"><span class="result-label">First 4</span><span class="result-value" id="in-r-first4">—</span></div>
           <div class="result-item"><span class="result-label">First 8</span><span class="result-value" id="in-r-first8">—</span></div>
@@ -147,19 +169,24 @@
           <div class="result-item"><span class="result-label">Last 8</span><span class="result-value" id="in-r-last8">—</span></div>
           <div class="result-item"><span class="result-label">Leading Zeros</span><span class="result-value" id="in-r-leading">—</span></div>
           <div class="result-item"><span class="result-label">Trailing Zeros</span><span class="result-value" id="in-r-trailing">—</span></div>
-          <div class="result-item"><span class="result-label">Target Pattern</span><span class="result-value" id="in-r-pattern">—</span></div>
-          <div class="result-item"><span class="result-label">Target Mode</span><span class="result-value" id="in-r-mode">—</span></div>
+          <div class="result-item"><span class="result-label">Raw Pattern</span><span class="result-value" id="in-r-raw-pattern">—</span></div>
+          <div class="result-item"><span class="result-label">Entered Pattern</span><span class="result-value" id="in-r-entered-pattern">—</span></div>
           <div class="result-item"><span class="result-label">Pattern Length</span><span class="result-value" id="in-r-plen">—</span></div>
-          <div class="result-item"><span class="result-label">Match</span><span class="result-value" id="in-r-match">—</span></div>
-          <div class="result-item"><span class="result-label">Difficulty</span><span class="result-value" id="in-r-diff">—</span></div>
-          <div class="result-item"><span class="result-label">Average Attempts</span><span class="result-value" id="in-r-attempts">—</span></div>
+          <div class="result-item"><span class="result-label">Alpha Chars (a-f)</span><span class="result-value" id="in-r-alpha">—</span></div>
+          <div class="result-item"><span class="result-label">Raw Pattern Match</span><span class="result-value" id="in-r-raw-match">—</span></div>
+          <div class="result-item"><span class="result-label">Exact EIP-55 Display Match</span><span class="result-value" id="in-r-eip55-match">—</span></div>
+          <div class="result-item"><span class="result-label">Raw Difficulty</span><span class="result-value" id="in-r-raw-diff">—</span></div>
+          <div class="result-item"><span class="result-label">Effective Difficulty</span><span class="result-value" id="in-r-eff-diff">—</span></div>
+          <div class="result-item"><span class="result-label">Raw Avg Attempts</span><span class="result-value" id="in-r-raw-attempts">—</span></div>
+          <div class="result-item"><span class="result-label">Effective Avg Attempts</span><span class="result-value" id="in-r-eff-attempts">—</span></div>
+          <div class="result-item"><span class="result-label">Overall Match</span><span class="result-value" id="in-r-match">—</span></div>
           <div class="result-item"><span class="result-label">Rarity</span><span class="result-value" id="in-r-rarity">—</span></div>
         </div>
         <p class="disclaimer warning">⚠ Visually interesting ≠ authentic identity. Always verify origin on-chain independently.</p>
       </div>
     </section>
 
-    <!-- 05 EDUCATIONAL ACCORDION -->
+    <!-- 04 EDUCATIONAL ACCORDION -->
     <section class="section" id="learn">
       <div class="section-index">[ 0x04 / KNOWLEDGE BASE ]</div>
       <div class="section-head">
@@ -210,7 +237,48 @@
         </details>
         <!-- 4 -->
         <details class="acc-item identity-frame" role="listitem">
-          <summary><span class="acc-num">04</span> CREATE2 Salt Mining</summary>
+          <summary><span class="acc-num">04</span> Raw Hex vs EIP-55 Display Casing</summary>
+          <div class="acc-body">
+            <p>An Ethereum address is a <strong>20-byte (160-bit) value</strong>. At the protocol level, the address is just raw bytes — case does not matter. <code>0xABC...</code> and <code>0xabc...</code> are the <em>same address</em>.</p>
+            <p><strong>EIP-55</strong> (Ethereum Improvement Proposal 55) introduced a <strong>mixed-case checksum encoding</strong> for human-readable display. It works by:</p>
+            <ol>
+              <li>Take the lowercase hex address (without <code>0x</code>)</li>
+              <li>Compute <strong>Keccak-256</strong> of the lowercase hex string</li>
+              <li>For each character position: if the corresponding nibble of the hash is ≥ 8, capitalize it; otherwise keep it lowercase</li>
+            </ol>
+            <p>This creates a deterministic casing pattern derived from the address itself. If a single character's case is wrong, it means either the address was mistyped or the display is not EIP-55 compliant.</p>
+
+            <div class="formula identity-frame">
+              <code>EIP-55: capitalize(hex[i]) iff keccak256(hex.toLowerCase())[i] >= 8</code>
+            </div>
+
+            <h4 class="acc-subhead">Why This Matters for FACE4663</h4>
+            <p>FACE4663 targets the suffix <code>face4663</code> — all lowercase. For the EIP-55 checksum to produce an address that <em>displays</em> as lowercase in these positions, the Keccak-256 hash nibbles at those positions must all be &lt; 8.</p>
+            <p>This adds <strong>extra entropy constraints</strong> beyond just matching the raw hex pattern. Each alphabetic hex character (<code>a-f</code>) in the target adds <strong>1 bit</strong> of checksum difficulty because there's a ~50% chance the hash nibble will be ≥ 8 (forcing uppercase).</p>
+
+            <table class="learn-table">
+              <thead><tr><th>Constraint</th><th>Pattern: face4663</th><th>Explanation</th></tr></thead>
+              <tbody>
+                <tr><td>Locked hex chars</td><td>8</td><td>8 characters fixed in address</td></tr>
+                <tr><td>Raw difficulty</td><td>2^32</td><td>4 bits × 8 chars</td></tr>
+                <tr><td>Alphabetic chars (a-f)</td><td>4 (f, a, c, e)</td><td>Numeric chars (4, 6, 6, 3) have no case constraint</td></tr>
+                <tr><td>Checksum bits</td><td>+4</td><td>Each alpha char adds ~1 bit</td></tr>
+                <tr><td>Effective difficulty</td><td>2^36</td><td>32 + 4 = 36 bits total</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="acc-subhead">Raw Match vs Exact EIP-55 Match</h4>
+            <p>A vanity miner can find addresses that match the <strong>raw hex pattern</strong> (case-insensitive) relatively easily. But to match the <strong>exact EIP-55 display casing</strong>, you need the Keccak-256 checksum nibbles to cooperate — which is ~16× harder for each alphabetic character in the pattern.</p>
+            <p>The two badges reflect this distinction:</p>
+            <ul>
+              <li><span class="badge-raw">RAW MATCH</span> — The hex digits match (case-insensitive)</li>
+              <li><span class="badge-eip55">EXACT EIP-55 MATCH</span> — The hex digits match AND the casing is exactly as specified by EIP-55</li>
+            </ul>
+          </div>
+        </details>
+        <!-- 5 -->
+        <details class="acc-item identity-frame" role="listitem">
+          <summary><span class="acc-num">05</span> CREATE2 Salt Mining</summary>
           <div class="acc-body">
             <p>The <code>CREATE2</code> opcode allows <strong>deterministic address generation</strong>. The deployed address is calculated from three inputs:</p>
             <div class="formula identity-frame">
@@ -228,9 +296,9 @@
             <p>The speed of this search depends on hashing throughput — Optimized GPU miners can test hundreds of millions to billions of candidate salts per second, depending on hardware and implementation.</p>
           </div>
         </details>
-        <!-- 5 -->
+        <!-- 6 -->
         <details class="acc-item identity-frame" role="listitem">
-          <summary><span class="acc-num">05</span> CREATE2 vs CREATE</summary>
+          <summary><span class="acc-num">06</span> CREATE2 vs CREATE</summary>
           <div class="acc-body">
             <div class="comparison-table">
               <div class="comparison-col">
@@ -267,9 +335,9 @@
             <p>CREATE2 enables vanity address mining because the <code>salt</code> parameter can be any 32-byte value, giving 2^256 possible addresses to search through.</p>
           </div>
         </details>
-        <!-- 6 -->
+        <!-- 7 -->
         <details class="acc-item identity-frame" role="listitem">
-          <summary><span class="acc-num">06</span> Why Difficulty Grows Fast</summary>
+          <summary><span class="acc-num">07</span> Why Difficulty Grows Fast</summary>
           <div class="acc-body">
             <p>Each hex character has <strong>16 possible values</strong>. Adding one more character multiplies difficulty by 16. This exponential growth means:</p>
             <table class="learn-table">
@@ -288,7 +356,7 @@
       </div>
     </section>
 
-    <!-- 06 GENESIS BENCHMARK -->
+    <!-- 05 GENESIS BENCHMARK -->
     <section class="section" id="benchmark">
       <div class="section-index">[ 0x05 / GENESIS BENCHMARK ]</div>
       <div class="section-head">
@@ -302,10 +370,10 @@
           <span class="status-badge pending">PENDING PUBLIC BENCHMARK</span>
         </div>
         <dl class="benchmark-fields">
-          <div><dt>Target Pattern</dt><dd class="pending-val">Pending</dd></div>
-          <div><dt>Pattern Type</dt><dd class="pending-val">Pending</dd></div>
-          <div><dt>Pattern Length</dt><dd class="pending-val">Pending</dd></div>
-          <div><dt>Difficulty</dt><dd class="pending-val">Pending</dd></div>
+          <div><dt>Target Pattern</dt><dd>face4663</dd></div>
+          <div><dt>Pattern Type</dt><dd>Suffix</dd></div>
+          <div><dt>Pattern Length</dt><dd>8 chars (4 alphabetic)</dd></div>
+          <div><dt>Difficulty</dt><dd>Raw: 2^32 = 4,294,967,296<br>Checksum: Exact lowercase EIP-55<br>Checksum bits: +4 (2^4)<br>Effective: 2^36 = 68,719,476,736</dd></div>
           <div><dt>Hardware</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Miner / Software</dt><dd class="pending-val">Pending</dd></div>
           <div><dt>Miner Version</dt><dd class="pending-val">Pending</dd></div>
@@ -325,7 +393,7 @@
       </div>
     </section>
 
-    <!-- 07 PUBLIC MILESTONES -->
+    <!-- 06 PUBLIC MILESTONES -->
     <section class="section" id="milestones">
       <div class="section-index">[ 0x06 / MILESTONES ]</div>
       <div class="section-head">
@@ -343,8 +411,10 @@
           <p class="milestone-pattern">8-char suffix</p>
           <p class="milestone-detail">Target: <code>face4663</code> — the foundational identity suffix.</p>
           <div class="milestone-difficulty">
-            <span>Difficulty: 2^32</span>
-            <span>~4.3 billion attempts</span>
+            <span>Raw suffix difficulty: 2^32</span>
+            <span>Exact lowercase EIP-55: 2^36</span>
+            <span>Raw average: ~4.29 billion</span>
+            <span>Effective average: ~68.72 billion</span>
           </div>
         </article>
 
@@ -391,7 +461,7 @@
       <p class="disclaimer">Every milestone will be benchmarked publicly with full reproducibility.</p>
     </section>
 
-    <!-- 08 SECURITY NOTES -->
+    <!-- 07 SECURITY NOTES -->
     <section class="section" id="security">
       <div class="section-index">[ 0x07 / SECURITY NOTES ]</div>
       <div class="section-head">
@@ -427,7 +497,7 @@
       </div>
     </section>
 
-    <!-- 09 CLOSING CTA -->
+    <!-- 08 CLOSING CTA -->
     <section class="section section-closing" id="closing">
       <div class="section-index">[ 0x08 / CLOSING ]</div>
       <h2>THE ADDRESS WAS<br>NEVER JUST A STRING.</h2>
@@ -444,6 +514,7 @@
     <div><span>Contract Identity Lab</span><span>Robinhood Chain · 4663</span></div>
   </footer>
 
+  <script src="./sha3.min.js"></script>
   <script src="./lab.js"></script>
 </body>
 </html>
