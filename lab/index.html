@@ -20,7 +20,6 @@
   <header class="site-header" data-header>
     <a class="wordmark" href="/" aria-label="FACE4663 home"><span>FACE</span><b>4663</b></a>
     <nav class="nav" aria-label="Lab navigation">
-      <a href="#playground">Playground</a>
       <a href="#calculator">Calculator</a>
       <a href="#inspector">Inspector</a>
       <a href="#learn">Learn</a>
@@ -41,57 +40,9 @@
       <p class="lab-hero-statement identity-frame">Understand the address. Measure the rarity. Verify the identity.</p>
     </section>
 
-    <!-- 02 TRY THE PLAYGROUND -->
-    <section class="section" id="playground">
-      <div class="section-index">[ 0x02 / VANITY PLAYGROUND ]</div>
-      <div class="section-head">
-        <p class="eyebrow">TRY THE PLAYGROUND</p>
-        <h2>CHECK ANY ADDRESS<br>FOR A PATTERN</h2>
-        <p>Paste a contract address and a hex pattern to simulate rarity analysis. No actual CREATE2 mining — simulation only.</p>
-      </div>
-
-      <form class="playground-form identity-frame" id="playgroundForm" aria-label="Vanity pattern checker">
-        <div class="form-row">
-          <label for="pg-address">Contract Address</label>
-          <input type="text" id="pg-address" placeholder="0x...example" autocomplete="off" spellcheck="false" />
-          <span class="field-hint">Example only — not the official FACE4663 contract. Must be 0x + 40 hex chars (0-9, a-f)</span>
-        </div>
-        <div class="form-row-inline">
-          <div class="form-row">
-            <label for="pg-mode">Mode</label>
-            <select id="pg-mode">
-              <option value="suffix">Suffix</option>
-              <option value="prefix">Prefix</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label for="pg-target">Target Pattern</label>
-            <input type="text" id="pg-target" placeholder="face4663" autocomplete="off" spellcheck="false" />
-            <span class="field-hint">Hex only: 0-9, a-f (auto-lowercased)</span>
-          </div>
-        </div>
-        <button type="submit" class="hud-button">Check Pattern</button>
-      </form>
-
-      <div class="playground-output identity-frame" id="playgroundOutput" hidden aria-live="polite">
-        <div class="result-grid">
-          <div class="result-item"><span class="result-label">Address</span><span class="result-value" id="pg-r-address">—</span></div>
-          <div class="result-item"><span class="result-label">Validity</span><span class="result-value" id="pg-r-valid">—</span></div>
-          <div class="result-item"><span class="result-label">Pattern</span><span class="result-value" id="pg-r-pattern">—</span></div>
-          <div class="result-item"><span class="result-label">Mode</span><span class="result-value" id="pg-r-mode">—</span></div>
-          <div class="result-item"><span class="result-label">Pattern Length</span><span class="result-value" id="pg-r-length">—</span></div>
-          <div class="result-item"><span class="result-label">Match</span><span class="result-value" id="pg-r-match">—</span></div>
-          <div class="result-item"><span class="result-label">Difficulty (2^n)</span><span class="result-value" id="pg-r-difficulty">—</span></div>
-          <div class="result-item"><span class="result-label">Avg Attempts (16^n)</span><span class="result-value" id="pg-r-attempts">—</span></div>
-          <div class="result-item"><span class="result-label">Rarity</span><span class="result-value" id="pg-r-rarity">—</span></div>
-        </div>
-        <p class="disclaimer">Simulation only. No actual CREATE2 salt mining occurs in this tool.</p>
-      </div>
-    </section>
-
     <!-- 03 VANITY PATTERN CALCULATOR -->
     <section class="section" id="calculator">
-      <div class="section-index">[ 0x03 / PATTERN CALCULATOR ]</div>
+      <div class="section-index">[ 0x02 / PATTERN CALCULATOR ]</div>
       <div class="section-head">
         <p class="eyebrow">VANITY PATTERN CALCULATOR</p>
         <h2>CALCULATE THE COST<br>OF A VANITY ADDRESS</h2>
@@ -155,7 +106,7 @@
 
     <!-- 04 ADDRESS INSPECTOR -->
     <section class="section" id="inspector">
-      <div class="section-index">[ 0x04 / ADDRESS INSPECTOR ]</div>
+      <div class="section-index">[ 0x03 / ADDRESS INSPECTOR ]</div>
       <div class="section-head">
         <p class="eyebrow">ADDRESS INSPECTOR</p>
         <h2>INSPECT ANY ADDRESS<br>FOR UNIQUE PATTERNS</h2>
@@ -166,19 +117,20 @@
         <div class="form-row">
           <label for="ins-address">Contract Address</label>
           <input type="text" id="ins-address" placeholder="0x...example" autocomplete="off" spellcheck="false" />
-          <span class="field-hint">Must be 0x + 40 hex characters</span>
+          <span class="field-hint">0x + 40 hex characters (0-9, a-f)</span>
         </div>
         <div class="form-row-inline">
-          <div class="form-row">
-            <label for="ins-target">Match Target (optional)</label>
-            <input type="text" id="ins-target" placeholder="face4663" autocomplete="off" spellcheck="false" />
-          </div>
           <div class="form-row">
             <label for="ins-target-mode">Target Mode</label>
             <select id="ins-target-mode">
               <option value="suffix">Suffix</option>
               <option value="prefix">Prefix</option>
             </select>
+          </div>
+          <div class="form-row">
+            <label for="ins-target">Target Pattern</label>
+            <input type="text" id="ins-target" placeholder="face4663" autocomplete="off" spellcheck="false" />
+            <span class="field-hint">Hex only: 0-9, a-f (auto-lowercased)</span>
           </div>
         </div>
         <button type="submit" class="hud-button">Inspect Address</button>
@@ -187,16 +139,21 @@
       <div class="inspector-output identity-frame" id="inspectorOutput" hidden aria-live="polite">
         <div class="result-grid">
           <div class="result-item full-width"><span class="result-label">Full Address</span><span class="result-value mono-wrap" id="in-r-full">—</span></div>
-          <div class="result-item"><span class="result-label">Char Count (after 0x)</span><span class="result-value" id="in-r-count">—</span></div>
-          <div class="result-item"><span class="result-label">Leading Zeros</span><span class="result-value" id="in-r-leading">—</span></div>
-          <div class="result-item"><span class="result-label">Trailing Zeros</span><span class="result-value" id="in-r-trailing">—</span></div>
-          <div class="result-item"><span class="result-label">First 4 (after 0x)</span><span class="result-value" id="in-r-first4">—</span></div>
-          <div class="result-item"><span class="result-label">First 8 (after 0x)</span><span class="result-value" id="in-r-first8">—</span></div>
+          <div class="result-item"><span class="result-label">Validity</span><span class="result-value" id="in-r-valid">—</span></div>
+          <div class="result-item"><span class="result-label">Char Count</span><span class="result-value" id="in-r-count">—</span></div>
+          <div class="result-item"><span class="result-label">First 4</span><span class="result-value" id="in-r-first4">—</span></div>
+          <div class="result-item"><span class="result-label">First 8</span><span class="result-value" id="in-r-first8">—</span></div>
           <div class="result-item"><span class="result-label">Last 4</span><span class="result-value" id="in-r-last4">—</span></div>
           <div class="result-item"><span class="result-label">Last 8</span><span class="result-value" id="in-r-last8">—</span></div>
-
-          <div class="result-item"><span class="result-label">Target Match</span><span class="result-value" id="in-r-match">—</span></div>
-          <div class="result-item"><span class="result-label">Estimated Rarity</span><span class="result-value" id="in-r-rarity">—</span></div>
+          <div class="result-item"><span class="result-label">Leading Zeros</span><span class="result-value" id="in-r-leading">—</span></div>
+          <div class="result-item"><span class="result-label">Trailing Zeros</span><span class="result-value" id="in-r-trailing">—</span></div>
+          <div class="result-item"><span class="result-label">Target Pattern</span><span class="result-value" id="in-r-pattern">—</span></div>
+          <div class="result-item"><span class="result-label">Target Mode</span><span class="result-value" id="in-r-mode">—</span></div>
+          <div class="result-item"><span class="result-label">Pattern Length</span><span class="result-value" id="in-r-plen">—</span></div>
+          <div class="result-item"><span class="result-label">Match</span><span class="result-value" id="in-r-match">—</span></div>
+          <div class="result-item"><span class="result-label">Difficulty</span><span class="result-value" id="in-r-diff">—</span></div>
+          <div class="result-item"><span class="result-label">Average Attempts</span><span class="result-value" id="in-r-attempts">—</span></div>
+          <div class="result-item"><span class="result-label">Rarity</span><span class="result-value" id="in-r-rarity">—</span></div>
         </div>
         <p class="disclaimer warning">⚠ Visually interesting ≠ authentic identity. Always verify origin on-chain independently.</p>
       </div>
@@ -204,7 +161,7 @@
 
     <!-- 05 EDUCATIONAL ACCORDION -->
     <section class="section" id="learn">
-      <div class="section-index">[ 0x05 / KNOWLEDGE BASE ]</div>
+      <div class="section-index">[ 0x04 / KNOWLEDGE BASE ]</div>
       <div class="section-head">
         <p class="eyebrow">EDUCATIONAL REFERENCE</p>
         <h2>UNDERSTAND<br>CONTRACT IDENTITY</h2>
@@ -333,7 +290,7 @@
 
     <!-- 06 GENESIS BENCHMARK -->
     <section class="section" id="benchmark">
-      <div class="section-index">[ 0x06 / GENESIS BENCHMARK ]</div>
+      <div class="section-index">[ 0x05 / GENESIS BENCHMARK ]</div>
       <div class="section-head">
         <p class="eyebrow">PUBLIC PROOF</p>
         <h2>GENESIS BENCHMARK</h2>
@@ -370,7 +327,7 @@
 
     <!-- 07 PUBLIC MILESTONES -->
     <section class="section" id="milestones">
-      <div class="section-index">[ 0x07 / MILESTONES ]</div>
+      <div class="section-index">[ 0x06 / MILESTONES ]</div>
       <div class="section-head">
         <p class="eyebrow">PUBLIC MILESTONES</p>
         <h2>THE PATH FORWARD</h2>
@@ -436,7 +393,7 @@
 
     <!-- 08 SECURITY NOTES -->
     <section class="section" id="security">
-      <div class="section-index">[ 0x08 / SECURITY NOTES ]</div>
+      <div class="section-index">[ 0x07 / SECURITY NOTES ]</div>
       <div class="section-head">
         <p class="eyebrow">⚠ SECURITY</p>
         <h2>IMPORTANT<br>SECURITY NOTES</h2>
@@ -472,7 +429,7 @@
 
     <!-- 09 CLOSING CTA -->
     <section class="section section-closing" id="closing">
-      <div class="section-index">[ 0x09 / CLOSING ]</div>
+      <div class="section-index">[ 0x08 / CLOSING ]</div>
       <h2>THE ADDRESS WAS<br>NEVER JUST A STRING.</h2>
       <div class="closing-actions">
         <a class="hud-button disabled" href="#" aria-disabled="true" tabindex="-1">View Contract — Coming Soon</a>
