@@ -61,8 +61,10 @@ function formatBig(n) {
 /** Format time in seconds to human-readable string */
 function formatTime(seconds) {
   if (!isFinite(seconds) || seconds < 0) return '—';
-  if (seconds < 0.001) return '< 1 ms';
-  if (seconds < 1) return seconds.toFixed(2) + ' s';
+  if (seconds < 1e-9) return '< 1 ns';
+  if (seconds < 1e-6) return (seconds * 1e9).toFixed(1) + ' ns';
+  if (seconds < 1e-3) return (seconds * 1e6).toFixed(1) + ' µs';
+  if (seconds < 1) return (seconds * 1e3).toFixed(2) + ' ms';
   if (seconds < 60) return seconds.toFixed(1) + ' s';
 
   const mins = seconds / 60;
@@ -269,6 +271,18 @@ function formatProb(p) {
       recalc();
     });
   });
+
+  // Toggle field visibility based on mode
+  const prefixRow = prefixEl.closest('.form-row');
+  const suffixRow = suffixEl.closest('.form-row');
+
+  function updateFieldVisibility() {
+    const m = modeEl.value;
+    prefixRow.classList.toggle('hidden', m === 'suffix');
+    suffixRow.classList.toggle('hidden', m === 'prefix');
+  }
+  modeEl.addEventListener('change', updateFieldVisibility);
+  updateFieldVisibility();
 
   // Recalc on any input change
   [modeEl, prefixEl, suffixEl, speedEl].forEach(el => {
