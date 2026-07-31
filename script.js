@@ -1,4 +1,4 @@
-const CONFIG={contractAddress:"0x00000000000000000000000000000000face4663",explorerUrl:"#",chartEmbedUrl:"",fullChartUrl:"#",tradeUrl:"#",xUrl:"#",ponsUrl:"#"};
+const CONFIG={contractAddress:"0x00000000000000000000000000000000face4663",explorerUrl:"#",chartEmbedUrl:"",fullChartUrl:"#",tradeUrl:"#",xUrl:"https://x.com/face4663",ponsUrl:"#"};
 const truncate=a=>a&&a.length>20?`${a.slice(0,7)}...${a.slice(-8)}`:a;
 document.querySelectorAll('[data-contract-full]').forEach(n=>n.textContent=CONFIG.contractAddress);
 document.querySelectorAll('[data-contract-display]').forEach(n=>n.textContent=truncate(CONFIG.contractAddress));
